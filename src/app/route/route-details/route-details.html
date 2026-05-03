@@ -1,7 +1,7 @@
 <p>route-details works!</p>
 @if (routeDetails()) {
   <div>
-    <a href="/route-edit/{{ routeDetails().id }}">Edit {{ routeDetails().name }}</a><br/>
+    <a [routerLink]="['/route-edit', routeDetails().id]">Edit {{ routeDetails().name }}</a><br/>
     
     name: {{ routeDetails().name }}<br/>
     

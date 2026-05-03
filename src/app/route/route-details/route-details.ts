@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Component, OnInit, signal } from '@angular/core';
+import { ActivatedRoute, ParamMap, Router, RouterLink } from '@angular/router';
 import { RouteService } from '../route.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Route } from '../models/route';
-import { signal } from '@angular/core';
-
 
 @Component({
   selector: 'app-route-details',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './route-details.html',
   styleUrl: './route-details.css',
 })
