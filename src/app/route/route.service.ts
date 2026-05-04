@@ -47,7 +47,8 @@ export class RouteService {
       variables: { id }
     }).pipe(
       map((result: any) => {
-        return result.data.getRoute;
+        console.log('Surowy obiekt otrzymany przez Apollo:', result);
+        return result.data?.getRoute;
       })
     );
   }

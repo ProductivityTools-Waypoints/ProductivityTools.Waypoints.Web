@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
@@ -14,21 +14,25 @@ import { PointEdit } from '../point-edit/point-edit';
   styleUrl: './route-edit.css',
 })
 export class RouteEdit {
+  @Input() id?: string;
   routeInput: RouteInput = new RouteInput('', '', '');
 
-  constructor(private routeService: RouteService, private route: ActivatedRoute) { }
+  constructor(private routeService: RouteService, private route: ActivatedRoute, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      const id = params.get('id');
-      console.log('RouteDetails id: ', id);
-      if (id) {
-        this.routeService.getRoute(id).subscribe((route: Route) => {
-          console.log('RouteDetails route: ', route);
-          this.routeInput = route as RouteInput;
-        });
-      }
-    });
+    console.log("NGINIT")
+    if (this.id) {
+      console.log("THIS ID")
+      this.routeService.getRoute(this.id).subscribe({
+        next: (route: Route) => {
+          console.log('RouteDetails route: ', route)
+          this.routeInput = Object.assign(new RouteInput('', '', ''), route);
+          console.log('route Input route: ', route);
+          this.cdr.detectChanges();
+        },
+        error: (err) => console.error('Błąd pobierania trasy', err)
+      });
+    }
   }
 
   onRouteNameChange(newName: string) {
