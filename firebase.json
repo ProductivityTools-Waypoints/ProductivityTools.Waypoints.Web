@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/productivity-tools-waypoints-web/browser",
+    "public": "dist/ProductivityTools.Waypoints.Web/browser",
     "ignore": [
       "firebase.json",
       "**/.*",
