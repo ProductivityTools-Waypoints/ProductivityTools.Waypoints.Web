@@ -26,6 +26,16 @@ export const routes: Routes = [
 
 ```
 
+### Initial deployment to fireabse 
+Register application in the Firebase
+```
+npm install -g firebase-tools
+firebase login
+firebase init hosting
+ng build
+firebase deploy --only hosting
+```
+
 ### Graphql
 ```
 ng add apollo-angular
