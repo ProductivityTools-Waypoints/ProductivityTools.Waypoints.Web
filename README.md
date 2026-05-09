@@ -35,6 +35,7 @@ firebase init hosting
 ng build
 firebase deploy --only hosting
 ```
+invoke build
 
 ### Graphql
 ```
