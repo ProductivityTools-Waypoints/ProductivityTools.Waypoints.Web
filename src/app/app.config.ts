@@ -15,9 +15,20 @@ export const appConfig: ApplicationConfig = {
     provideApollo(() => {
       const httpLink = inject(HttpLink);
 
+
+      // Determine URI based on environment
+      let uri = 'https://pt-waypoints-api-93484780890.us-central1.run.app/graphql';
+
+      // Check if running on localhost
+      if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
+        uri = 'http://localhost:8080/graphql';
+      }
+
+
+
       return {
         link: httpLink.create({
-          uri: 'http://localhost:8080/graphql'
+          uri: uri
         }),
         cache: new InMemoryCache(),
       };
