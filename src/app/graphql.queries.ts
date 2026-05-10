@@ -1,4 +1,4 @@
-import {gql} from 'apollo-angular';
+import { gql } from 'apollo-angular';
 
 export const GET_WAYPOINTS = gql`
   query GetWaypoints {
@@ -9,8 +9,8 @@ export const GET_WAYPOINTS = gql`
     }
   }
 `;
-export const HELLO_WORLD = gql`
+export const HELLO = gql`
     query {
-        hello
+        helloQuery
     }
 `;
