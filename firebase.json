@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "pt-waypoints",
     "public": "dist/ProductivityTools.Waypoints.Web/browser",
     "ignore": [
       "firebase.json",
