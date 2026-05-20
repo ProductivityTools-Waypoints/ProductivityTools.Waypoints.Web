@@ -10,7 +10,7 @@ ng serve
 ### Initial
 ```
 ng generate module home
-ng generate sercice home\home.service
+ng generate service home\home.service
 ng generate component home\hello
 ```
 Routes:
