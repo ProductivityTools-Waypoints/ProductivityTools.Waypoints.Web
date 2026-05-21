@@ -10,5 +10,9 @@ import { Route } from '../models/route';
   styleUrl: './route-edit.css',
 })
 export class RouteEdit {
-  route: Route = new Route(-1, '');
+  route: Route = new Route(-1, '' , '');
+
+  onSave(){
+    console.log('Saving route: ', this.route);
+  }
 }
