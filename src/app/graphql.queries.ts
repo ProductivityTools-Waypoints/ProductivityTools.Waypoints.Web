@@ -14,3 +14,8 @@ export const HELLO = gql`
         helloQuery
     }
 `;
+export const ADD_PATH = gql`
+  mutation AddPath($name: String!) {
+    AddPath(name: $name)
+  }
+`;
