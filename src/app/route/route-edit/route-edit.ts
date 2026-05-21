@@ -17,6 +17,13 @@ export class RouteEdit {
 
   onSave(){
     console.log('Saving route: ', this.route);
-    this.routeService.save(this.route);
+    this.routeService.save(this.route).subscribe({
+      next: (response) => {
+        console.log('Route saved successfully', response);
+      },
+      error: (error) => {
+        console.error('Error saving route', error);
+      }
+    });
   }
 }
