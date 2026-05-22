@@ -15,7 +15,16 @@ export const HELLO = gql`
     }
 `;
 export const ADD_PATH = gql`
-  mutation AddPath($name: String!) {
-    AddPath(name: $name)
+  mutation AddRoute($name: String!) {
+    AddRoute(name: $name)
+  }
+`;
+
+export const GET_PATHS = gql`
+  query GetRoutes {
+    routes { 
+      id
+      name
+    }
   }
 `;
