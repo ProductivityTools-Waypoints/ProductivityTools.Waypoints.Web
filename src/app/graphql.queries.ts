@@ -14,17 +14,16 @@ export const HELLO = gql`
         helloQuery
     }
 `;
-export const ADD_PATH = gql`
+export const ADD_ROUTE = gql`
   mutation AddRoute($name: String!) {
     AddRoute(name: $name)
   }
 `;
 
-export const GET_PATHS = gql`
-  query GetRoutes {
-    routes { 
+export const GET_ROUTES = gql`
+  query {
+    getRoutes { 
       id
-      name
     }
   }
 `;

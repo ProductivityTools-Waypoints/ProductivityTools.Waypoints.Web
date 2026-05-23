@@ -1,1 +1,11 @@
 <p>route-list works!</p>
+
+@if (routes$ | async; as routes) {
+<ul>
+    <li *ngFor="let route of routes">
+        {{ route.name }}
+    </li>
+</ul>
+} @else {
+<p>No routes available.</p>
+}
