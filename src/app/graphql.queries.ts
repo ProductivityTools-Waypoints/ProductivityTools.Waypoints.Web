@@ -23,7 +23,8 @@ export const ADD_ROUTE = gql`
 export const GET_ROUTES = gql`
   query {
     getRoutes { 
-      id
+      id,
+      name
     }
   }
 `;

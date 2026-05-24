@@ -35,7 +35,7 @@ export class RouteService {
     
     return this.routeQueryRef.valueChanges.pipe(
       map((result: any) => {
-        debugger;
+        //debugger;
         return result.data?.getRoutes
       })
     );
