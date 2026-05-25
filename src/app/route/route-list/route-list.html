@@ -3,7 +3,7 @@
 @if (routes$ | async; as routes) {
 <ul>
     <li *ngFor="let route of routes">
-       id: {{ route.id }}, name: {{ route.name }}
+      <a href="route-details/{{ route.id }}">id: {{ route.id }}, name: {{ route.name }}</a>
     </li>
 </ul>
 } @else {

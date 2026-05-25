@@ -10,9 +10,13 @@ export const routes: Routes = [
         path: 'route-edit',
         loadComponent: () => import('./route/route-edit/route-edit').then(m => m.RouteEdit)
     },
-        {
+    {
         path: 'route-list',
         loadComponent: () => import('./route/route-list/route-list').then(m => m.RouteList)
+    },
+            {
+        path: 'route-details/:id',
+        loadComponent: () => import('./route/route-details/route-details').then(m => m.RouteDetails)
     },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
 

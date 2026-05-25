@@ -28,3 +28,12 @@ export const GET_ROUTES = gql`
     }
   }
 `;
+
+export const GET_ROUTE = gql`
+  query GetRoute($id: ID!) {
+    getRoute(id: $id) {
+      id
+      name
+    }
+  }
+`;
