@@ -1,1 +1,17 @@
-<p>point-edit works!</p>
+@if (point) {
+  <div class="point-editor-row">
+    <div class="field-group">
+      <label>Name</label>
+      <input type="text" [(ngModel)]="point.name" placeholder="Point Name" />
+    </div>
+    <div class="field-group">
+      <label>Odometer</label>
+      <input type="number" [(ngModel)]="point.odometer" placeholder="Odometer" />
+    </div>
+    <div class="field-group">
+      <label>Distance</label>
+      <input type="number" [(ngModel)]="point.distance" placeholder="Distance" />
+    </div>
+  </div>
+}
+

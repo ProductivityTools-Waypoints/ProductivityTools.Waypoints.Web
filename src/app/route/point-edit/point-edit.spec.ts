@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PointEdit } from './point-edit';
+import { Point } from '../models/point';
 
 describe('PointEdit', () => {
   let component: PointEdit;
@@ -13,6 +13,7 @@ describe('PointEdit', () => {
 
     fixture = TestBed.createComponent(PointEdit);
     component = fixture.componentInstance;
+    component.point = new Point('Test Point', 100, 10);
     await fixture.whenStable();
   });
 
@@ -20,3 +21,4 @@ describe('PointEdit', () => {
     expect(component).toBeTruthy();
   });
 });
+
