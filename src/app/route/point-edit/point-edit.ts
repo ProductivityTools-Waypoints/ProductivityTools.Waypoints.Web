@@ -6,4 +6,5 @@ import { Component } from '@angular/core';
   templateUrl: './point-edit.html',
   styleUrl: './point-edit.css',
 })
-export class PointEdit {}
+export class PointEdit {
+}

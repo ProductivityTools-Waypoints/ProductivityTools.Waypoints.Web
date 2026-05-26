@@ -3,4 +3,13 @@ Route name:
 <input type="text" placeholder="Route name" [(ngModel)]="route.name" /><br/>
 Route direction:
 <input type="text" placeholder="Route direction" [(ngModel)]="route.direction" /><br/>
+@if (route.points.length > 0) {
+    <h3>Points</h3>
+    <ul>
+        <li><point-edit *ngFor="let point of route.points" [point]="point"></point-edit></li>
+    </ul>
+} @else {
+    <h3>No points</h3>
+}
 <button (click)="onSave()">Save</button>
+<button (click)="addPoint()">Add Point</button>

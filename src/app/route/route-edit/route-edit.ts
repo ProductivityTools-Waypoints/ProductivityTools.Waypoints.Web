@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Route } from '../models/route';
 import { RouteService } from '../route.service';
+import { Point } from '../models/point';
+import { PointEdit } from '../point-edit/point-edit';
 
 @Component({
   selector: 'app-route-edit',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, PointEdit],
   templateUrl: './route-edit.html',
   styleUrl: './route-edit.css',
 })
@@ -25,5 +27,9 @@ export class RouteEdit {
         console.error('Error saving route', error);
       }
     });
+  }
+
+  addPoint(){
+    this.route.points.push({ name: '', odometer: 0, distance: 0 });
   }
 }
