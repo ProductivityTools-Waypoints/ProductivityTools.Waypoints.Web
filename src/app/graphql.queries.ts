@@ -16,7 +16,15 @@ export const HELLO = gql`
 `;
 export const ADD_ROUTE = gql`
   mutation AddRoute($route: RouteInput!) {
-    AddRoute(RouteInput: $route)
+    AddRoute(route: $route) {
+      id
+      name
+      points {
+        name
+        odometer
+        distance
+      }
+    }
   }
 `;
 
@@ -25,6 +33,7 @@ export const GET_ROUTES = gql`
     getRoutes { 
       id,
       name
+      direction
     }
   }
 `;

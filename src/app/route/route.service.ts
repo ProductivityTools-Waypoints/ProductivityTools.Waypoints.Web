@@ -26,7 +26,7 @@ export class RouteService {
     return this.apollo.mutate({
       mutation: ADD_ROUTE,
       variables: {
-        RouteInput: route
+        route: route
       }
     });
   }
