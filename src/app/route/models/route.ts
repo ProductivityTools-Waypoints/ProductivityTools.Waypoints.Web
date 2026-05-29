@@ -13,3 +13,17 @@ export class Route {
         this.points = [];
     }
 }
+
+export class RouteInput {
+    id: number;
+    name: string;
+    direction: string;
+    points: Point[];
+
+    constructor(id: number, name: string, direction: string) {
+        this.id = id;
+        this.name = name;
+        this.direction = direction;
+        this.points = [];
+    }
+}

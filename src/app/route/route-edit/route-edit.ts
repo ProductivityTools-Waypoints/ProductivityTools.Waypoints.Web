@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Route } from '../models/route';
+import { RouteInput } from '../models/route';
 import { RouteService } from '../route.service';
 import { Point } from '../models/point';
 import { PointEdit } from '../point-edit/point-edit';
@@ -13,7 +13,7 @@ import { PointEdit } from '../point-edit/point-edit';
   styleUrl: './route-edit.css',
 })
 export class RouteEdit {
-  route: Route = new Route(-1, '' , '');
+  route: RouteInput = new RouteInput(-1, '' , '');
 
   constructor(private routeService: RouteService) { }
 
