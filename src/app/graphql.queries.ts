@@ -15,8 +15,8 @@ export const HELLO = gql`
     }
 `;
 export const ADD_ROUTE = gql`
-  mutation AddRoute($name: String!) {
-    AddRoute(name: $name)
+  mutation AddRoute($route: RouteInput!) {
+    AddRoute(RouteInput: $route)
   }
 `;
 

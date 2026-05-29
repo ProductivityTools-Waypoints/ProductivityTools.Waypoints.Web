@@ -26,7 +26,7 @@ export class RouteService {
     return this.apollo.mutate({
       mutation: ADD_ROUTE,
       variables: {
-        name: route.name
+        RouteInput: route
       }
     });
   }
@@ -40,7 +40,7 @@ export class RouteService {
       })
     );
   }
-  
+
   getRoute(id: string): Observable<Route> {
     return this.apollo.query<{ getRoute: Route }>({
       query: GET_ROUTE,
