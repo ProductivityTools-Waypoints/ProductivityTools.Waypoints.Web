@@ -23,6 +23,15 @@ export const ADD_ROUTE = gql`
   }
 `;
 
+export const DELETE_ROUTE = gql`
+  mutation DeleteRoute($id: ID!) {
+    deleteRoute(id: $id) {
+      success
+    }
+  }
+`;
+
+
 export const GET_ROUTES = gql`
   query {
     getRoutes { 

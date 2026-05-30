@@ -1,3 +1,5 @@
 <p>route-details works!</p>
   <a href="route-edit/{{ routeDetails().id }}">Edit {{  routeDetails().name  }}</a>
 name: {{ routeDetails().name }}
+
+<button (click)="deleteRoute()">delete</button>

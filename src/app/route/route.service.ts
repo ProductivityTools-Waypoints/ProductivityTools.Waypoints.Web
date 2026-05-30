@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Route,RouteInput } from './models/route';
+import { Route, RouteInput } from './models/route';
 import { Observable } from 'rxjs';
 import { Apollo, QueryRef } from 'apollo-angular';
-import { ADD_ROUTE, GET_ROUTES, GET_ROUTE } from '../graphql.queries';
+import { ADD_ROUTE, GET_ROUTES, GET_ROUTE, DELETE_ROUTE } from '../graphql.queries';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -32,7 +32,7 @@ export class RouteService {
   }
 
   getRoutesObservable(): Observable<Route[]> {
-    
+
     return this.routeQueryRef.valueChanges.pipe(
       map((result: any) => {
         //debugger;
@@ -50,5 +50,17 @@ export class RouteService {
         return result.data.getRoute;
       })
     );
+  }
+
+  deleteRoute(id: string): Observable<String> {
+    return this.apollo.mutate<{ deleteRoute: String }>({
+      mutation: DELETE_ROUTE,
+      variables: { id }
+    }).pipe(
+      map((result: any) => {
+        return result.data.deleteRoute;
+      })
+    );
+
   }
 }
