@@ -1,8 +1,9 @@
 <p>route-edit works!</p>
+Route id: {{ route.id }} <br/>
 Route name:
-<input type="text" placeholder="Route name" [(ngModel)]="route.name" /><br/>
+<input type="text" placeholder="Route name" [(ngModel)]="route.name" (ngModelChange)="onRouteNameChange($event)"  /><br/>
 Route direction:
-<input type="text" placeholder="Route direction" [(ngModel)]="route.direction" /><br/>
+<input type="text" placeholder="Route direction" [(ngModel)]="route.direction" (ngModelChange)="onRouteDirectionChange($event)" /><br/>
 @if (route.points.length > 0) {
     <h3>Points</h3>
     <ul>

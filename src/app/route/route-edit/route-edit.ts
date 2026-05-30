@@ -13,11 +13,21 @@ import { PointEdit } from '../point-edit/point-edit';
   styleUrl: './route-edit.css',
 })
 export class RouteEdit {
-  route: RouteInput = new RouteInput(-1, '' , '');
+  route: RouteInput = new RouteInput('', '', '');
 
   constructor(private routeService: RouteService) { }
 
-  onSave(){
+  onRouteNameChange(newName: string) {
+    console.log('Route name changed: ', newName);
+    this.route.id = newName + '-' + this.route.direction;
+  }
+
+  onRouteDirectionChange(newDirection: string) {
+    console.log('Route direction changed: ', newDirection);
+    this.route.id = this.route.name + '-' + newDirection;
+  }
+
+  onSave() {
     console.log('Saving route: ', this.route);
     this.routeService.save(this.route).subscribe({
       next: (response) => {
@@ -29,7 +39,7 @@ export class RouteEdit {
     });
   }
 
-  addPoint(){
+  addPoint() {
     this.route.points.push({ name: '', odometer: 0, distance: 0 });
   }
 }

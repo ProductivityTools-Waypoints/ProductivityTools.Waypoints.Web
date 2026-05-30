@@ -1,12 +1,12 @@
 import { Point } from "./point";
 
 export class Route {
-    id: number;
+    id: string;
     name: string;
     direction: string;
     points: Point[];
 
-    constructor(id: number, name: string, direction: string) {
+    constructor(id: string, name: string, direction: string) {
         this.id = id;
         this.name = name;
         this.direction = direction;
@@ -15,12 +15,12 @@ export class Route {
 }
 
 export class RouteInput {
-    id: number;
+    id: string;
     name: string;
     direction: string;
     points: Point[];
 
-    constructor(id: number, name: string, direction: string) {
+    constructor(id: string, name: string, direction: string) {
         this.id = id;
         this.name = name;
         this.direction = direction;

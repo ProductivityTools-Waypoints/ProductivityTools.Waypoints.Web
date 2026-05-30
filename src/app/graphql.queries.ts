@@ -19,11 +19,6 @@ export const ADD_ROUTE = gql`
     AddRoute(route: $route) {
       id
       name
-      points {
-        name
-        odometer
-        distance
-      }
     }
   }
 `;
