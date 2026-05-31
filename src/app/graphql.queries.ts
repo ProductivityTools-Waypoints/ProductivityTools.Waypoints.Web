@@ -24,10 +24,8 @@ export const ADD_ROUTE = gql`
 `;
 
 export const DELETE_ROUTE = gql`
-  mutation DeleteRoute($id: ID!) {
-    deleteRoute(id: $id) {
-      success
-    }
+  mutation DeleteRoute($id: String!) {
+    DeleteRoute(id: $id)
   }
 `;
 
