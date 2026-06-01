@@ -2,6 +2,7 @@
 @if (routeDetails()) {
   <div>
     <a href="route-edit/{{ routeDetails().id }}">Edit {{ routeDetails().name }}</a><br/>
+    
     name: {{ routeDetails().name }}<br/>
     
     @if (routeDetails().points && routeDetails().points.length > 0) {

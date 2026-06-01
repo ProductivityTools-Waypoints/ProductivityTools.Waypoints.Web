@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouteInput } from '../models/route';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Route, RouteInput } from '../models/route';
 import { RouteService } from '../route.service';
 import { Point } from '../models/point';
 import { PointEdit } from '../point-edit/point-edit';
@@ -13,23 +14,36 @@ import { PointEdit } from '../point-edit/point-edit';
   styleUrl: './route-edit.css',
 })
 export class RouteEdit {
-  route: RouteInput = new RouteInput('', '', '');
+  routeInput: RouteInput = new RouteInput('', '', '');
 
-  constructor(private routeService: RouteService) { }
+  constructor(private routeService: RouteService, private route: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      const id = params.get('id');
+      console.log('RouteDetails id: ', id);
+      if (id) {
+        this.routeService.getRoute(id).subscribe((route: Route) => {
+          console.log('RouteDetails route: ', route);
+          this.routeInput = route as RouteInput;
+        });
+      }
+    });
+  }
 
   onRouteNameChange(newName: string) {
     console.log('Route name changed: ', newName);
-    this.route.id = newName + '-' + this.route.direction;
+    this.routeInput.id = newName + '-' + this.routeInput.direction;
   }
 
   onRouteDirectionChange(newDirection: string) {
     console.log('Route direction changed: ', newDirection);
-    this.route.id = this.route.name + '-' + newDirection;
+    this.routeInput.id = this.routeInput.name + '-' + newDirection;
   }
 
   onSave() {
-    console.log('Saving route: ', this.route);
-    this.routeService.save(this.route).subscribe({
+    console.log('Saving route: ', this.routeInput);
+    this.routeService.save(this.routeInput).subscribe({
       next: (response) => {
         console.log('Route saved successfully', response);
       },
@@ -40,6 +54,6 @@ export class RouteEdit {
   }
 
   addPoint() {
-    this.route.points.push({ name: '', odometer: 0, distance: 0 });
+    this.routeInput.points.push({ name: '', odometer: 0, distance: 0 });
   }
 }

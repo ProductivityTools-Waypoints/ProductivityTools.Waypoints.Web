@@ -6,7 +6,7 @@
     </div>
     <div class="field-group">
       <label>Odometer</label>
-      <input type="number" [(ngModel)]="point.odometer" placeholder="Odometer" />
+      <input type="number" [(ngModel)]="point.odometer" (ngModelChange)="onOdometerChange($event)" placeholder="Odometer" />
     </div>
     <div class="field-group">
       <label>Distance</label>
