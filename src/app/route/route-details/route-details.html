@@ -1,5 +1,22 @@
 <p>route-details works!</p>
-  <a href="route-edit/{{ routeDetails().id }}">Edit {{  routeDetails().name  }}</a>
-name: {{ routeDetails().name }}
+@if (routeDetails()) {
+  <div>
+    <a href="route-edit/{{ routeDetails().id }}">Edit {{ routeDetails().name }}</a><br/>
+    name: {{ routeDetails().name }}<br/>
+    
+    @if (routeDetails().points && routeDetails().points.length > 0) {
+      <h3>Points:</h3>
+      <ul>
+        @for (point of routeDetails().points; track point.name) {
+          <li>
+            <strong>{{ point.name }}</strong> - Odometer: {{ point.odometer }}, Distance: {{ point.distance }}
+          </li>
+        }
+      </ul>
+    } @else {
+      <p>No points on this route.</p>
+    }
 
-<button (click)="deleteRoute()">delete</button>
+    <button (click)="deleteRoute()">delete</button>
+  </div>
+}

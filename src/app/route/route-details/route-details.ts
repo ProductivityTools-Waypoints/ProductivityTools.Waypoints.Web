@@ -37,7 +37,7 @@ export class RouteDetails implements OnInit {
     this.routeService.deleteRoute(this.routeDetails().id).subscribe({
       next: (response) => {
         console.log('Route deleted successfully', response);
-        //this.router.navigate(['/route-list']);
+        this.router.navigate(['/route-list']);
       },
       error: (error) => {
         console.error('Error deleting route', error);

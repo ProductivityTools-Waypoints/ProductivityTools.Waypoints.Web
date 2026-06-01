@@ -45,6 +45,11 @@ export const GET_ROUTE = gql`
     getRoute(id: $id) {
       id
       name
+      points {
+        name
+        odometer
+        distance
+      }
     }
   }
 `;
