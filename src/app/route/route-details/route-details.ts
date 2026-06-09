@@ -45,4 +45,9 @@ export class RouteDetails implements OnInit {
     // After deletion, navigate back to the route list
     //this.router.navigate(['/route-list']);
   }
+
+  addPointMobile() {
+    console.log('Add point');
+    this.router.navigate(['/add-point', this.routeDetails().id, 'add-point']);
+  }
 }
