@@ -1,1 +1,15 @@
 <p>point-edit-mobile works!</p>
+<div>
+  <div>
+    <label>Name</label>
+    <input type="text" [(ngModel)]="point.name" placeholder="Point Name" />
+  </div>
+  <div>
+    <label>Odometer</label>
+    <input type="text" [(ngModel)]="point.odometer" placeholder="Odometer" (ngModelChange)="onOdometerChange($event)" />
+  </div>
+  <div>
+    <label>Distance</label>
+    <input type="text" [(ngModel)]="point.distance" placeholder="Distance" />
+  </div>
+</div>
