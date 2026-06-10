@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Route, RouteInput } from './models/route';
 import { Observable } from 'rxjs';
 import { Apollo, QueryRef } from 'apollo-angular';
-import { SAVE_ROUTE, GET_ROUTES, GET_ROUTE, DELETE_ROUTE } from '../graphql.queries';
+import { SAVE_ROUTE, GET_ROUTES, GET_ROUTE, DELETE_ROUTE , REMOVE_ODOMETERS} from '../graphql.queries';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -62,6 +62,16 @@ export class RouteService {
         return result.data.deleteRoute;
       })
     );
+  }
 
+  removeOdometers(id: string): Observable<{ points: any[] }> {
+    return this.apollo.mutate<{ removeOdometers: { points: any[] } }>({
+      mutation: REMOVE_ODOMETERS,
+      variables: { id }
+    }).pipe(
+      map((result: any) => {
+        return result.data.removeOdometers;
+      })
+    );
   }
 }

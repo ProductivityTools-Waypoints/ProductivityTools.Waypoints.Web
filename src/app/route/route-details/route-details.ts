@@ -50,4 +50,16 @@ export class RouteDetails implements OnInit {
     console.log('Add point');
     this.router.navigate(['/add-point', this.routeDetails().id]);
   }
+  removeOdometers() {
+    console.log('Remove odometers');
+    this.routeService.removeOdometers(this.routeDetails().id).subscribe({
+      next: (response) => {
+        console.log('Odometers removed successfully', response);
+        this.routeDetails.set({ ...this.routeDetails(), points: response.points });
+      },
+      error: (error) => {
+        console.error('Error removing odometers', error);
+      }
+    });
+  }
 }
