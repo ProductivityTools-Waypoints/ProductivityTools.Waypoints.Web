@@ -39,11 +39,16 @@ export const DELETE_ROUTE = gql`
 export const REMOVE_ODOMETERS = gql`
   mutation RemoveOdometers($id: String!) {
     RemoveOdometers(id: $id) {
+      id
+      name
+      direction
+      points {
         name
         odometer
         distance
+      }
+    }
   }
-}
 `;
 
 
