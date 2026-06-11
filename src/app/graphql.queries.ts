@@ -14,11 +14,18 @@ export const HELLO = gql`
         helloQuery
     }
 `;
-export const ADD_ROUTE = gql`
-  mutation AddRoute($route: RouteInput!) {
-    AddRoute(route: $route) {
+
+export const SAVE_ROUTE = gql`
+  mutation SaveRoute($route: RouteInput!) {
+    SaveRoute(route: $route) {
       id
       name
+      direction
+      points {
+        name
+        odometer
+        distance
+      }
     }
   }
 `;

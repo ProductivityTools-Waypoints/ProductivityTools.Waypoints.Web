@@ -31,7 +31,9 @@ export class PointEditMobile implements OnInit {
       
       if (this.routeId) {
         this.routeService.getRoute(this.routeId).subscribe(route => {
-          this.route = route;
+          const copiedRoute = new Route(route.id, route.name, route.direction);
+          copiedRoute.points = route.points ? route.points.map(p => new Point(p.name, p.odometer, p.distance)) : [];
+          this.route = copiedRoute;
           this.setupPoint();
         });
       }
@@ -72,6 +74,7 @@ export class PointEditMobile implements OnInit {
   }
 
   onSave() {
+    console.log('Saving point:', this.point, this.route);
     if (this.route && this.point) {
       if (!this.isEdit) {
         this.route.points.push(this.point);

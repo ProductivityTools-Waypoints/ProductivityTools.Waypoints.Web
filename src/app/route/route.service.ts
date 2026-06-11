@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Route, RouteInput } from './models/route';
 import { Observable } from 'rxjs';
 import { Apollo, QueryRef } from 'apollo-angular';
-import { ADD_ROUTE, GET_ROUTES, GET_ROUTE, DELETE_ROUTE } from '../graphql.queries';
+import { SAVE_ROUTE, GET_ROUTES, GET_ROUTE, DELETE_ROUTE } from '../graphql.queries';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -24,7 +24,7 @@ export class RouteService {
   save(route: RouteInput): Observable<any> {
     console.log('RouteService saving route: ', route);
     return this.apollo.mutate({
-      mutation: ADD_ROUTE,
+      mutation: SAVE_ROUTE,
       variables: {
         route: route
       }

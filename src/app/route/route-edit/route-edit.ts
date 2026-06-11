@@ -26,7 +26,9 @@ export class RouteEdit {
       this.routeService.getRoute(this.id).subscribe({
         next: (route: Route) => {
           console.log('RouteDetails route: ', route)
-          this.routeInput = Object.assign(new RouteInput('', '', ''), route);
+          const copiedRoute = new RouteInput(route.id, route.name, route.direction);
+          copiedRoute.points = route.points ? route.points.map(p => new Point(p.name, p.odometer, p.distance)) : [];
+          this.routeInput = copiedRoute;
           console.log('route Input route: ', route);
           this.cdr.detectChanges();
         },
