@@ -1,8 +1,8 @@
 export class Point {
     name: string;
-    odometer: number;
+    odometer: number | null;
     distance: number;
-    constructor(name: string, odometer: number, distance: number) {
+    constructor(name: string, odometer: number | null, distance: number) {
         this.name = name;
         this.odometer = odometer;
         this.distance = distance;

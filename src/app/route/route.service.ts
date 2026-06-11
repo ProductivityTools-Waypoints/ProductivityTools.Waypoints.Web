@@ -54,23 +54,23 @@ export class RouteService {
   }
 
   deleteRoute(id: string): Observable<String> {
-    return this.apollo.mutate<{ deleteRoute: String }>({
+    return this.apollo.mutate<{ DeleteRoute: String }>({
       mutation: DELETE_ROUTE,
       variables: { id }
     }).pipe(
       map((result: any) => {
-        return result.data.deleteRoute;
+        return result.data.DeleteRoute;
       })
     );
   }
 
   removeOdometers(id: string): Observable<{ points: any[] }> {
-    return this.apollo.mutate<{ removeOdometers: { points: any[] } }>({
+    return this.apollo.mutate<{ RemoveOdometers: { points: any[] } }>({
       mutation: REMOVE_ODOMETERS,
       variables: { id }
     }).pipe(
       map((result: any) => {
-        return result.data.removeOdometers;
+        return result.data.RemoveOdometers;
       })
     );
   }

@@ -10,7 +10,7 @@
       <ul>
         @for (point of routeDetails().points; track point.name) {
           <li>
-            <strong>{{ point.name }}</strong> - Odometer: {{ point.odometer }}, Distance: {{ point.distance }}
+            <strong>{{ point.name }}</strong> - Odometer: {{ point.odometer ?? 0 }}, Distance: {{ point.distance }}
           </li>
         }
       </ul>
