@@ -26,6 +26,10 @@ export const routes: Routes = [
         path: 'add-point/:id',
         loadComponent: () => import('./route/point-edit-mobile/point-edit-mobile').then(m => m.PointEditMobile)
     },
+    {
+        path: 'edit-point/:id',
+        loadComponent: () => import('./route/point-edit-mobile/point-edit-mobile').then(m => m.PointEditMobile)
+    },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
 
 
