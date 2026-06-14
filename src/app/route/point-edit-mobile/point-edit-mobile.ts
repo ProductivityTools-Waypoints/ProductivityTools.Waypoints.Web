@@ -1,26 +1,89 @@
-import { Component, Input } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RouteService } from '../route.service';
 import { Point } from '../models/point';
-
+import { Route } from '../models/route';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-point-edit-mobile',
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './point-edit-mobile.html',
   styleUrl: './point-edit-mobile.css',
 })
-export class PointEditMobile {
-  @Input() point!: Point;
-  @Input() points: Point[] = [];
-  @Input() index!: number;
+export class PointEditMobile implements OnInit {
+  routeId: string | null = null;
+  index: number | null = null;
+  route: Route | null = null;
+  point: Point = new Point('', 0, 0);
+  isEdit = false;
 
-  onOdometerChange(newOdometer: number) {
-    console.log('Odometer changed: ', newOdometer);
-    this.point.odometer = newOdometer;
+  constructor(
+    private activeRoute: ActivatedRoute,
+    private routeService: RouteService,
+    private router: Router
+  ) {}
 
-    if (this.index > 0 && this.points && this.points[this.index - 1]) {
-      const prevOdometer = this.points[this.index - 1].odometer || 0;
-      this.point.distance = newOdometer - prevOdometer;
+  ngOnInit() {
+    this.activeRoute.paramMap.subscribe(params => {
+      this.routeId = params.get('id');
+      
+      if (this.routeId) {
+        this.routeService.getRoute(this.routeId).subscribe(route => {
+          this.route = route;
+          this.setupPoint();
+        });
+      }
+    });
+
+    this.activeRoute.queryParamMap.subscribe(queryParams => {
+      const indexStr = queryParams.get('index');
+      if (indexStr !== null) {
+        this.index = +indexStr;
+        this.isEdit = true;
+      } else {
+        this.index = null;
+        this.isEdit = false;
+      }
+      this.setupPoint();
+    });
+  }
+
+  setupPoint() {
+    if (!this.route) return;
+
+    if (this.isEdit && this.index !== null && this.route.points[this.index]) {
+      this.point = this.route.points[this.index];
+    } else {
+      this.point = new Point('', 0, 0);
+      this.index = this.route.points.length;
+    }
+  }
+
+  onOdometerChange(value: number) {
+    if (this.route && this.index !== null && this.index > 0) {
+      const prevPoint = this.route.points[this.index - 1];
+      if (prevPoint) {
+        const prevOdometer = prevPoint.odometer || 0;
+        this.point.distance = value - prevOdometer;
+      }
+    }
+  }
+
+  onSave() {
+    if (this.route && this.point) {
+      if (!this.isEdit) {
+        this.route.points.push(this.point);
+      }
+      this.routeService.save(this.route).subscribe({
+        next: () => {
+          this.router.navigate(['/route-details', this.routeId]);
+        },
+        error: (err) => {
+          console.error('Error saving route with point', err);
+        }
+      });
     }
   }
 }

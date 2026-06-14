@@ -1,15 +1,18 @@
-<p>point-edit-mobile works!</p>
-<div>
-  <div>
-    <label>Name</label>
-    <input type="text" [(ngModel)]="point.name" placeholder="Point Name" />
+@if (point) {
+  <div class="point-editor">
+    <h2>{{ isEdit ? 'Edit Point' : 'Add Point' }}</h2>
+    <div class="field-group">
+      <label>Name</label>
+      <input type="text" [(ngModel)]="point.name" placeholder="Point Name" />
+    </div>
+    <div class="field-group">
+      <label>Odometer</label>
+      <input type="number" [(ngModel)]="point.odometer" (ngModelChange)="onOdometerChange($event)" placeholder="Odometer" />
+    </div>
+    <div class="field-group">
+      <label>Distance</label>
+      <input type="number" [(ngModel)]="point.distance" placeholder="Distance" />
+    </div>
+    <button (click)="onSave()">Save</button>
   </div>
-  <div>
-    <label>Odometer</label>
-    <input type="text" [(ngModel)]="point.odometer" placeholder="Odometer" (ngModelChange)="onOdometerChange($event)" />
-  </div>
-  <div>
-    <label>Distance</label>
-    <input type="text" [(ngModel)]="point.distance" placeholder="Distance" />
-  </div>
-</div>
+}
