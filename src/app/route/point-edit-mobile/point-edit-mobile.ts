@@ -28,6 +28,8 @@ export class PointEditMobile implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.isEdit = this.activeRoute.snapshot.url[0]?.path === 'edit-point';
+
     this.activeRoute.paramMap.subscribe(params => {
       this.routeId = params.get('id');
       
@@ -45,10 +47,8 @@ export class PointEditMobile implements OnInit {
       const indexStr = queryParams.get('index');
       if (indexStr !== null) {
         this.index = +indexStr;
-        this.isEdit = true;
       } else {
         this.index = null;
-        this.isEdit = false;
       }
       this.setupPoint();
     });
@@ -63,7 +63,9 @@ export class PointEditMobile implements OnInit {
       this.point = this.route.points[this.index];
     } else {
       this.point = new Point('', 0, 0);
-      this.index = this.route.points.length;
+      if (this.index === null) {
+        this.index = this.route.points.length;
+      }
     }
     this.cdr.detectChanges();
   }
@@ -82,13 +84,19 @@ export class PointEditMobile implements OnInit {
     console.log('Saving point:', this.point, this.route);
     if (this.route && this.point) {
       if (!this.isEdit) {
-        this.route.points.push(this.point);
+        if (this.index !== null) {
+          this.route.points.splice(this.index, 0, this.point);
+          this.route.points[this.index+1].distance=this.route.points[this.index+1].distance-this.point.distance;
+        } else {
+          this.route.points.push(this.point);
+        }
       }
-      for (let i = (this.index??0)+1; i < this.route.points.length; i++) {
+      
+      const startIndex = (this.index !== null && this.index > 0) ? this.index : 1;
+      for (let i = startIndex; i < this.route.points.length; i++) {
         const prevPoint = this.route.points[i - 1];
         const currentPoint = this.route.points[i];
         currentPoint.odometer = (prevPoint.odometer || 0) + currentPoint.distance;
-
       }
 
       this.routeService.save(this.route).subscribe({
