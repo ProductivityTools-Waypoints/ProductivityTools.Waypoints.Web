@@ -60,19 +60,27 @@ describe('RouteDetails', () => {
 
   it('should display odometer values, defaulting to 0 if null', () => {
     fixture.detectChanges();
-    const listItems = fixture.debugElement.queryAll(By.css('li'));
-    expect(listItems.length).toBe(2);
-    expect(listItems[0].nativeElement.textContent).toContain('Odometer: 0');
-    expect(listItems[1].nativeElement.textContent).toContain('Odometer: 100');
+    const rows = fixture.debugElement.queryAll(By.css('tbody tr'));
+    expect(rows.length).toBe(2);
+    
+    const row1Cells = rows[0].queryAll(By.css('td'));
+    const row2Cells = rows[1].queryAll(By.css('td'));
+    
+    expect(row1Cells[1].nativeElement.textContent.trim()).toBe('0');
+    expect(row2Cells[1].nativeElement.textContent.trim()).toBe('100');
   });
 
   it('should update UI to display 0 for all odometers after calling removeOdometers', () => {
     component.removeOdometers();
     fixture.detectChanges();
-    const listItems = fixture.debugElement.queryAll(By.css('li'));
-    expect(listItems.length).toBe(2);
-    expect(listItems[0].nativeElement.textContent).toContain('Odometer: 0');
-    expect(listItems[1].nativeElement.textContent).toContain('Odometer: 0');
+    const rows = fixture.debugElement.queryAll(By.css('tbody tr'));
+    expect(rows.length).toBe(2);
+    
+    const row1Cells = rows[0].queryAll(By.css('td'));
+    const row2Cells = rows[1].queryAll(By.css('td'));
+    
+    expect(row1Cells[1].nativeElement.textContent.trim()).toBe('0');
+    expect(row2Cells[1].nativeElement.textContent.trim()).toBe('0');
   });
 });
 

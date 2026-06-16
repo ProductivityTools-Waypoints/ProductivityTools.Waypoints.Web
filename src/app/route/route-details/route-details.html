@@ -1,23 +1,35 @@
-<p>route-details works!</p>
 @if (routeDetails()) {
   <div>
-    <a [routerLink]="['/route-edit', routeDetails().id]">Edit {{ routeDetails().name }}</a><br/>
-    
-    name: {{ routeDetails().name }}<br/>
+    <b>{{ routeDetails().name }} - {{ routeDetails().direction }}</b><br/>
     
     @if (routeDetails().points && routeDetails().points.length > 0) {
-      <h3>Points:</h3>
-      <ul>
-        @for (point of routeDetails().points; track point.name) {
-          <li>
-            <strong>{{ point.name }}</strong> - Odometer: {{ point.odometer ?? 0 }}, Distance: {{ point.distance }} <button (click)="editPointMobile(point, $index)">Edit</button>
-          </li>
-        }
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Odometer</th>
+            <th>Distance</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (point of routeDetails().points; track point.name) {
+            <tr>
+              <td>{{ point.name }}</td>
+              <td>{{ point.odometer ?? 0 }}</td>
+              <td>{{ point.distance }}</td>
+              <td>
+                <button (click)="editPointMobile(point, $index)">Edit</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
     } @else {
       <p>No points on this route.</p>
     }
 
+    <button [routerLink]="['/route-edit', routeDetails().id]">Edit Route</button>
     <button (click)="deleteRoute()">Delete Route</button>
     <button (click)="addPointMobile()">Add Point Mobile</button>
     <button (click)="removeOdometers()">Remove Odometers</button>
