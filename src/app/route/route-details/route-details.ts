@@ -73,6 +73,11 @@ export class RouteDetails implements OnInit {
   }
 
   deletePointMobile(point :any, index:number){
-    console.log("Point", point,' index', index )
+      console.log("Point", point,' index', index )
+      //const selectedPoint=this.routeDetails().points[index];
+      //console.log("Selected point:", selectedPoint);
+      
+      this.routeDetails().points[index-1].distance=this.routeDetails().points[index-1].distance+point.distance;
+      this.routeDetails().points.splice(index,1);
   }
 }
