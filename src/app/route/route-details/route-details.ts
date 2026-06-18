@@ -4,6 +4,7 @@ import { RouteService } from '../route.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Route } from '../models/route';
+import { Point } from '../models/point';
 
 @Component({
   selector: 'app-route-details',
@@ -72,12 +73,41 @@ export class RouteDetails implements OnInit {
     this.router.navigate(['/insert-point', this.routeDetails().id], {queryParams: {index: index} });
   }
 
-  deletePointMobile(point :any, index:number){
-      console.log("Point", point,' index', index )
-      //const selectedPoint=this.routeDetails().points[index];
-      //console.log("Selected point:", selectedPoint);
-      
-      this.routeDetails().points[index-1].distance=this.routeDetails().points[index-1].distance+point.distance;
-      this.routeDetails().points.splice(index,1);
+  deletePointMobile(point: any, index: number) {
+    console.log("Delete Point", point, 'index:', index);
+    const currentRoute = this.routeDetails();
+    if (!currentRoute || !currentRoute.points) return;
+
+    // 1. Create a shallow copy of the points array
+    const updatedPoints = [...currentRoute.points];
+
+    // 2. If it's not the last point, add the deleted point's distance to the NEXT point
+    // to maintain odometer consistency for the remaining route.
+    if (index < updatedPoints.length - 1) {
+      const nextPointIndex = index + 1;
+      // Clone the next point to modify it immutably
+      updatedPoints[nextPointIndex] = {
+        ...updatedPoints[nextPointIndex],
+        distance: (updatedPoints[nextPointIndex].distance || 0) + (point.distance || 0)
+      };
+    }
+
+    // 3. Remove the point from the copied array
+    updatedPoints.splice(index, 1);
+
+    // 4. Reconstruct the route and points using classes to strip __typename
+    const cleanRoute = new Route(currentRoute.id, currentRoute.name, currentRoute.direction);
+    cleanRoute.points = updatedPoints.map(p => new Point(p.name, p.odometer, p.distance));
+
+    // 5. Save the changes to the backend and update local state on success
+    this.routeService.save(cleanRoute).subscribe({
+      next: (response) => {
+        console.log('Point deleted and route saved successfully', response);
+        this.routeDetails.set(cleanRoute);
+      },
+      error: (error) => {
+        console.error('Error saving route after deleting point', error);
+      }
+    });
   }
 }
