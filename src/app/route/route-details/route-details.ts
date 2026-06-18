@@ -62,8 +62,8 @@ export class RouteDetails implements OnInit {
       }
     });
   }
-  editPointMobile(point: any) {
-    console.log('Edit point: ', point);
-    this.router.navigate(['/edit-point', this.routeDetails().id]);
+  editPointMobile(point: any, index: number) {
+    console.log('Edit point: ', point, 'index:', index);
+    this.router.navigate(['/edit-point', this.routeDetails().id], { queryParams: { index: index } });
   }
 }

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouteService } from '../route.service';
 import { Point } from '../models/point';
 import { Route } from '../models/route';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-point-edit-mobile',
@@ -22,7 +23,8 @@ export class PointEditMobile implements OnInit {
   constructor(
     private activeRoute: ActivatedRoute,
     private routeService: RouteService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -53,7 +55,9 @@ export class PointEditMobile implements OnInit {
   }
 
   setupPoint() {
-    if (!this.route) return;
+    if (!this.route) {
+      return;
+    }
 
     if (this.isEdit && this.index !== null && this.route.points[this.index]) {
       this.point = this.route.points[this.index];
@@ -61,6 +65,7 @@ export class PointEditMobile implements OnInit {
       this.point = new Point('', 0, 0);
       this.index = this.route.points.length;
     }
+    this.cdr.detectChanges();
   }
 
   onOdometerChange(value: number) {
