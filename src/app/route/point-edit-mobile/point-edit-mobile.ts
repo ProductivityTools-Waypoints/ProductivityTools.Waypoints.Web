@@ -84,6 +84,13 @@ export class PointEditMobile implements OnInit {
       if (!this.isEdit) {
         this.route.points.push(this.point);
       }
+      for (let i = (this.index??0)+1; i < this.route.points.length; i++) {
+        const prevPoint = this.route.points[i - 1];
+        const currentPoint = this.route.points[i];
+        currentPoint.odometer = (prevPoint.odometer || 0) + currentPoint.distance;
+
+      }
+
       this.routeService.save(this.route).subscribe({
         next: () => {
           this.router.navigate(['/route-details', this.routeId]);
