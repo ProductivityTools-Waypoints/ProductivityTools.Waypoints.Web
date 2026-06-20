@@ -86,7 +86,9 @@ export class PointEditMobile implements OnInit {
       if (!this.isEdit) {
         if (this.index !== null) {
           this.route.points.splice(this.index, 0, this.point);
-          this.route.points[this.index+1].distance=this.route.points[this.index+1].distance-this.point.distance;
+          if (this.index + 1 < this.route.points.length) {
+            this.route.points[this.index+1].distance = this.route.points[this.index+1].distance - this.point.distance;
+          }
         } else {
           this.route.points.push(this.point);
         }
