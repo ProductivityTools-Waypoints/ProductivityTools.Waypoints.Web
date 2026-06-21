@@ -28,7 +28,7 @@ export class PointEditMobile implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.isEdit = this.activeRoute.snapshot.url[0]?.path === 'edit-point';
+    this.isEdit = this.activeRoute.snapshot.url[0]?.path === 'point-edit';
 
     this.activeRoute.paramMap.subscribe(params => {
       this.routeId = params.get('id');

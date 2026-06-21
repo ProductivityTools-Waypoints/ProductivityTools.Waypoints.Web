@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Point } from '../models/point';
 
 @Component({
   selector: 'app-point-details',
@@ -6,4 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './point-details.html',
   styleUrl: './point-details.css',
 })
-export class PointDetails {}
+export class PointDetails {
+   @Input() point!: Point;
+}

@@ -65,16 +65,16 @@ export class RouteDetails implements OnInit {
   }
   editPointMobile(point: any, index: number) {
     console.log('Edit point: ', point, 'index:', index);
-    this.router.navigate(['/edit-point', this.routeDetails().id], { queryParams: { index: index } });
+    this.router.navigate(['/point-edit', this.routeDetails().id], { queryParams: { index: index } });
   }
 
   insertPointMobile(point :any, index: number){
     console.log("Point", point,' index', index )
-    this.router.navigate(['/insert-point', this.routeDetails().id], {queryParams: {index: index} });
+    this.router.navigate(['/point-insert', this.routeDetails().id], {queryParams: {index: index} });
   }
 
   openDetails(point :any, index: number){
-    this.router.navigate(['/point-details',this.routeDetails().id],{queryParams:{index:index}})
+    this.router.navigate(['point-details',this.routeDetails().id],{queryParams:{index:index}})
   }
 
   deletePointMobile(point: any, index: number) {

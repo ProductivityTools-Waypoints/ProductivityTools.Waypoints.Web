@@ -23,11 +23,11 @@ export const routes: Routes = [
         loadComponent: () => import('./route/route-edit/route-edit').then(m => m.RouteEdit)
     },
     {
-        path: 'add-point/:id',
+        path: 'point-add/:id',
         loadComponent: () => import('./route/point-edit-mobile/point-edit-mobile').then(m => m.PointEditMobile)
     },
     {
-        path: 'edit-point/:id',
+        path: 'point-edit/:id',
         loadComponent: () => import('./route/point-edit-mobile/point-edit-mobile').then(m => m.PointEditMobile)
     },
     {
@@ -35,7 +35,7 @@ export const routes: Routes = [
         loadComponent: () => import('./route/point-details/point-details').then(m => m.PointDetails)
     },
     {
-        path: 'insert-point/:id',
+        path: 'point-insert/:id',
         loadComponent: () => import('./route/point-edit-mobile/point-edit-mobile').then(m => m.PointEditMobile)
     },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
