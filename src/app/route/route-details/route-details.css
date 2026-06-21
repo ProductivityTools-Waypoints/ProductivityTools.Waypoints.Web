@@ -1,3 +1,4 @@
+/* Desktop & Mobile Table Styles (Simple Table) */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -31,4 +32,26 @@ button {
 
 button:last-child {
   margin-right: 0;
+}
+
+/* Mobile Styles */
+@media screen and (max-width: 600px) {
+  /* Stack bottom action buttons vertically and make them full-width */
+  div > button {
+    display: block;
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 12px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 500;
+    box-sizing: border-box;
+    background-color: #f8f9fa;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+  }
+  
+  div > button:last-child {
+    margin-bottom: 0;
+  }
 }

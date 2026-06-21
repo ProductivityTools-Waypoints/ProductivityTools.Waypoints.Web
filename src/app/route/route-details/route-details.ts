@@ -73,6 +73,10 @@ export class RouteDetails implements OnInit {
     this.router.navigate(['/insert-point', this.routeDetails().id], {queryParams: {index: index} });
   }
 
+  openDetails(point :any, index: number){
+    this.router.navigate(['/point-details',this.routeDetails().id],{queryParams:{index:index}})
+  }
+
   deletePointMobile(point: any, index: number) {
     console.log("Delete Point", point, 'index:', index);
     const currentRoute = this.routeDetails();
