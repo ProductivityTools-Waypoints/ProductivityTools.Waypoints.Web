@@ -48,7 +48,7 @@ export class PointDetails {
   }
   setupPoint() {
     console.log("setup point", this.route?.points, this.index)
-    if (this.route && this.index && this.index > 0) {
+    if (this.route && this.index !== null && this.route.points[this.index])  {
       this.point = this.route.points[this.index];
       this.cdr.detectChanges();
     }
