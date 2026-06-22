@@ -74,7 +74,8 @@ export class RouteDetails implements OnInit {
   }
 
   editPointMobile(point :any, index: number){
-    
+        this.router.navigate(['/point-edit', this.routeDetails().id], { queryParams: { index: index } });
+
   }
 
   deletePointMobile(point: any, index: number) {
