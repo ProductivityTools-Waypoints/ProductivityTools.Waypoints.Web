@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Route, RouteInput } from './models/route';
+import { Point } from './models/point';
 import { Observable } from 'rxjs';
 import { Apollo, QueryRef } from 'apollo-angular';
 import { SAVE_ROUTE, GET_ROUTES, GET_ROUTE, DELETE_ROUTE , REMOVE_ODOMETERS} from '../graphql.queries';
@@ -71,6 +72,41 @@ export class RouteService {
     }).pipe(
       map((result: any) => {
         return result.data.RemoveOdometers;
+      })
+    );
+  }
+
+  deletePoint(route: Route, index: number): Observable<Route> {
+    console.log("Delete Point in service, index:", index);
+    
+    // 1. Create a shallow copy of the points array
+    const updatedPoints = [...route.points];
+
+    // 2. If it's not the last point, add the deleted point's distance to the NEXT point
+    // to maintain odometer consistency for the remaining route.
+    if (index < updatedPoints.length - 1) {
+      const nextPointIndex = index + 1;
+      const deletedPointDistance = route.points[index].distance || 0;
+      // Clone the next point to modify it immutably
+      updatedPoints[nextPointIndex] = {
+        ...updatedPoints[nextPointIndex],
+        distance: (updatedPoints[nextPointIndex].distance || 0) + deletedPointDistance
+      };
+    }
+
+    // 3. Remove the point from the copied array
+    updatedPoints.splice(index, 1);
+
+    // 4. Reconstruct the route and points using classes to strip __typename
+    const cleanRoute = new RouteInput(route.id, route.name, route.direction);
+    cleanRoute.points = updatedPoints.map(p => new Point(p.name, p.odometer, p.distance));
+
+    // 5. Save the changes to the backend and return the updated Route
+    return this.save(cleanRoute).pipe(
+      map(() => {
+        const updatedRoute = new Route(route.id, route.name, route.direction);
+        updatedRoute.points = cleanRoute.points;
+        return updatedRoute;
       })
     );
   }

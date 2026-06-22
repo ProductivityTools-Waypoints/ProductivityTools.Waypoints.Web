@@ -66,39 +66,14 @@ export class PointDetails {
 
   }
 
-  deletePointMobile(){
-    
-  console.log("Delete Point", this.point, 'index:', this.index);
-    const currentRoute = this.route;
-    if (!this.index || !this.route|| !currentRoute || !currentRoute.points) return;
+  deletePointMobile() {
+    console.log("Delete Point", this.point, 'index:', this.index);
+    if (this.index === null || !this.route) return;
 
-    // 1. Create a shallow copy of the points array
-    const updatedPoints = [...currentRoute.points];
-
-    // 2. If it's not the last point, add the deleted point's distance to the NEXT point
-    // to maintain odometer consistency for the remaining route.
-    if (this.index < updatedPoints.length - 1) {
-      const nextPointIndex = this.index + 1;
-      // Clone the next point to modify it immutably
-      updatedPoints[nextPointIndex] = {
-        ...updatedPoints[nextPointIndex],
-        distance: (updatedPoints[nextPointIndex].distance || 0) + (this.point.distance || 0)
-      };
-    }
-
-    // 3. Remove the point from the copied array
-    updatedPoints.splice(this.index, 1);
-
-    // 4. Reconstruct the route and points using classes to strip __typename
-    const cleanRoute = new Route(currentRoute.id, currentRoute.name, currentRoute.direction);
-    cleanRoute.points = updatedPoints.map(p => new Point(p.name, p.odometer, p.distance));
-
-    // 5. Save the changes to the backend and update local state on success
-    this.routeService.save(cleanRoute).subscribe({
-      next: (response) => {
-        console.log('Point deleted and route saved successfully', response);
-        this.router.navigate(['/route-details',this.routeId])
-
+    this.routeService.deletePoint(this.route, this.index).subscribe({
+      next: (updatedRoute) => {
+        console.log('Point deleted and route saved successfully');
+        this.router.navigate(['/route-details', this.routeId]);
       },
       error: (error) => {
         console.error('Error saving route after deleting point', error);
