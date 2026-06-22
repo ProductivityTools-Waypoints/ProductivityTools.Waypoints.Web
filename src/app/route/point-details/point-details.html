@@ -4,7 +4,11 @@
     <p><strong>Name:</strong> {{ point.name }}</p>
     <p><strong>Odometer:</strong> {{ point.odometer ?? 0 }}</p>
     <p><strong>Distance:</strong> {{ point.distance }}</p>
+      <button (click)="editPointMobile()">Edit</button>
+      <button (click)="insertPointMobile()">Insert</button>
+      <button (click)="deletePointMobile()">Delete</button>
   </div>
 } @else {
   <p>Loading point details...</p>
 }
+

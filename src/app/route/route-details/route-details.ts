@@ -63,10 +63,6 @@ export class RouteDetails implements OnInit {
       }
     });
   }
-  editPointMobile(point: any, index: number) {
-    console.log('Edit point: ', point, 'index:', index);
-    this.router.navigate(['/point-edit', this.routeDetails().id], { queryParams: { index: index } });
-  }
 
   insertPointMobile(point :any, index: number){
     console.log("Point", point,' index', index )
