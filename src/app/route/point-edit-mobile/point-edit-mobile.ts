@@ -111,4 +111,8 @@ export class PointEditMobile implements OnInit {
       });
     }
   }
+
+  onCancel() {
+    this.router.navigate(['/route-details', this.routeId]);
+  }
 }

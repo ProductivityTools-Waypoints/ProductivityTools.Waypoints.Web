@@ -80,4 +80,8 @@ export class PointDetails {
       }
     });
   }
+
+  onCancel() {
+    this.router.navigate(['/route-details', this.routeId]);
+  }
 }
