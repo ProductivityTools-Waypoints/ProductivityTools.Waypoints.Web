@@ -15,7 +15,7 @@
         <tbody>
           @for (point of routeDetails().points; track point.name) {
             <tr (click)="openDetails(point, $index)" class="clickable-row">
-              <td>{{ point.name }}</td>
+              <td>{{ point.name }} {{point.comment ? "(i)": ''}}</td>
               <td>{{ point.odometer ?? 0 }}</td>
               <td>{{ point.distance }}</td>
               <td>

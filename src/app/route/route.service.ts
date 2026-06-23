@@ -99,7 +99,7 @@ export class RouteService {
 
     // 4. Reconstruct the route and points using classes to strip __typename
     const cleanRoute = new RouteInput(route.id, route.name, route.direction);
-    cleanRoute.points = updatedPoints.map(p => new Point(p.name, p.odometer, p.distance));
+    cleanRoute.points = updatedPoints.map(p => new Point(p.name, p.odometer, p.distance, p.comment));
 
     // 5. Save the changes to the backend and return the updated Route
     return this.save(cleanRoute).pipe(

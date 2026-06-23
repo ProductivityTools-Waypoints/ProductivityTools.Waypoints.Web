@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Route, RouteInput } from '../models/route';
 import { RouteService } from '../route.service';
 import { Point } from '../models/point';
@@ -17,7 +17,10 @@ export class RouteEdit {
   @Input() id?: string;
   routeInput: RouteInput = new RouteInput('', '', '');
 
-  constructor(private routeService: RouteService, private route: ActivatedRoute, private cdr: ChangeDetectorRef) { }
+  constructor(private routeService: RouteService, 
+    private route: ActivatedRoute, 
+    private router:Router,
+    private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     console.log("NGINIT")
@@ -27,7 +30,7 @@ export class RouteEdit {
         next: (route: Route) => {
           console.log('RouteDetails route: ', route)
           const copiedRoute = new RouteInput(route.id, route.name, route.direction);
-          copiedRoute.points = route.points ? route.points.map(p => new Point(p.name, p.odometer, p.distance)) : [];
+          copiedRoute.points = route.points ? route.points.map(p => new Point(p.name, p.odometer, p.distance,p.comment)) : [];
           this.routeInput = copiedRoute;
           console.log('route Input route: ', route);
           this.cdr.detectChanges();
@@ -52,6 +55,7 @@ export class RouteEdit {
     this.routeService.save(this.routeInput).subscribe({
       next: (response) => {
         console.log('Route saved successfully', response);
+        this.router.navigate(['/route-list'])
       },
       error: (error) => {
         console.error('Error saving route', error);
@@ -60,6 +64,6 @@ export class RouteEdit {
   }
 
   addPoint() {
-    this.routeInput.points.push({ name: '', odometer: 0, distance: 0 });
+    this.routeInput.points.push({ name: '', odometer: 0, distance: 0 , comment:''});
   }
 }

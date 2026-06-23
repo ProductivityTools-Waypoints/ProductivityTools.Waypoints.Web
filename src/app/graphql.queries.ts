@@ -25,6 +25,7 @@ export const SAVE_ROUTE = gql`
         name
         odometer
         distance
+        comment
       }
     }
   }
@@ -46,6 +47,7 @@ export const REMOVE_ODOMETERS = gql`
         name
         odometer
         distance
+        comment
       }
     }
   }
@@ -72,6 +74,7 @@ export const GET_ROUTE = gql`
         name
         odometer
         distance
+        comment
       }
     }
   }

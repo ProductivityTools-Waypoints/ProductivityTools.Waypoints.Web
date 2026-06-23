@@ -17,7 +17,7 @@ export class PointEditMobile implements OnInit {
   routeId: string | null = null;
   index: number | null = null;
   route: Route | null = null;
-  point: Point = new Point('', 0, 0);
+  point: Point = new Point('', 0, 0,'');
   isEdit = false;
 
   constructor(
@@ -36,7 +36,7 @@ export class PointEditMobile implements OnInit {
       if (this.routeId) {
         this.routeService.getRoute(this.routeId).subscribe(route => {
           const copiedRoute = new Route(route.id, route.name, route.direction);
-          copiedRoute.points = route.points ? route.points.map(p => new Point(p.name, p.odometer, p.distance)) : [];
+          copiedRoute.points = route.points ? route.points.map(p => new Point(p.name, p.odometer, p.distance,p.comment)) : [];
           this.route = copiedRoute;
           this.setupPoint();
         });
@@ -62,7 +62,7 @@ export class PointEditMobile implements OnInit {
     if (this.isEdit && this.index !== null && this.route.points[this.index]) {
       this.point = this.route.points[this.index];
     } else {
-      this.point = new Point('', 0, 0);
+      this.point = new Point('', 0, 0,'');
       if (this.index === null) {
         this.index = this.route.points.length;
       }

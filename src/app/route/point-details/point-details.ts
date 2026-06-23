@@ -13,7 +13,7 @@ import { RouteService } from '../route.service';
 export class PointDetails {
   routeId: string | null = null;
   route: Route | null = null;
-  point: Point = new Point('', 0, 0);
+  point: Point = new Point('', 0, 0,'');
   index: number | null = null;
 
   constructor(

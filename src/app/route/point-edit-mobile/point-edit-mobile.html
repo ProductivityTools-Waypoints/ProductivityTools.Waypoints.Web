@@ -13,6 +13,10 @@
       <label>Distance</label>
       <input type="number" [(ngModel)]="point.distance" placeholder="Distance" />
     </div>
+        <div class="field-group">
+      <label>Comment</label>
+      <input type="text" [(ngModel)]="point.comment" placeholder="Comment" />
+    </div>
     <button (click)="onSave()">Save</button>
     <button (click)="onCancel()">Cancel</button>
   </div>
