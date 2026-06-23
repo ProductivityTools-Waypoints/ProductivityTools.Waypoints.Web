@@ -49,7 +49,7 @@ export class RouteDetails implements OnInit {
 
   addPointMobile() {
     console.log('Add point');
-    this.router.navigate(['/add-point', this.routeDetails().id]);
+    this.router.navigate(['/point-add', this.routeDetails().id]);
   }
   removeOdometers() {
     console.log('Remove odometers');

@@ -55,3 +55,7 @@ button:last-child {
     margin-bottom: 0;
   }
 }
+
+.clickable-row {
+  cursor: pointer;
+}

@@ -14,15 +14,15 @@
         </thead>
         <tbody>
           @for (point of routeDetails().points; track point.name) {
-            <tr>
+            <tr (click)="openDetails(point, $index)" class="clickable-row">
               <td>{{ point.name }}</td>
               <td>{{ point.odometer ?? 0 }}</td>
               <td>{{ point.distance }}</td>
               <td>
-                <button (click)="insertPointMobile(point, $index)">Insert</button>
-                <button (click)="deletePointMobile(point, $index)">Delete</button>
-                <button (click)="editPointMobile(point, $index)">Edit</button>
-                <button (click)="openDetails(point, $index)">Details</button>
+                <button (click)="$event.stopPropagation(); insertPointMobile(point, $index)">Insert</button>
+                <button (click)="$event.stopPropagation(); deletePointMobile(point, $index)">Delete</button>
+                <button (click)="$event.stopPropagation(); editPointMobile(point, $index)">Edit</button>
+                <button (click)="$event.stopPropagation(); openDetails(point, $index)">Details</button>
               </td>
             </tr>
           }
