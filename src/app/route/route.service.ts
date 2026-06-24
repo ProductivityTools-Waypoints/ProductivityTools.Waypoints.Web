@@ -24,10 +24,26 @@ export class RouteService {
 
   save(route: RouteInput): Observable<any> {
     console.log('RouteService saving route: ', route);
+    
+    // Strip frontend-only properties (like cumulativeDistnace) to match backend pointInput schema
+    const cleanPoints = route.points ? route.points.map(p => ({
+      name: p.name,
+      odometer: p.odometer,
+      distance: p.distance,
+      comment: p.comment
+    })) : [];
+
+    const cleanRoute = {
+      id: route.id,
+      name: route.name,
+      direction: route.direction,
+      points: cleanPoints
+    };
+
     return this.apollo.mutate({
       mutation: SAVE_ROUTE,
       variables: {
-        route: route
+        route: cleanRoute
       }
     });
   }

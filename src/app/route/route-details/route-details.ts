@@ -31,6 +31,7 @@ export class RouteDetails implements OnInit {
         this.routeService.getRoute(id).subscribe((route: Route) => {
           console.log('RouteDetails route: ', route);
           this.routeDetails.set(route);
+          this.recalculateDistance(0);
         });
       }
     });
@@ -95,8 +96,8 @@ export class RouteDetails implements OnInit {
     });
   }
 
-  recalculateDistance(point:any, index:number){
-   console.log('recalculateDistance', point);
+  recalculateDistance(index:number){
+   console.log('recalculateDistance');
     const currentRoute = this.routeDetails();
     if (!currentRoute || !currentRoute.points) return;
     // 1. Clone the points array and clone each point object to allow mutation safely
