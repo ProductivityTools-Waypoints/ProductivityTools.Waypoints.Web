@@ -89,4 +89,21 @@ export class RouteDetails implements OnInit {
       }
     });
   }
+
+  recalculateDistance(point:any, index:number){
+    let cumulativeDistnace:number=0;
+    for(let i=0;i<this.routeDetails().points.length;i++)
+    {
+      if (i<index)
+      {
+        this.routeDetails().points[i].cumulativeDistnace=0;
+      }
+      else
+      {
+        
+        this.routeDetails().points[i].cumulativeDistnace=cumulativeDistnace;
+        cumulativeDistnace=+this.routeDetails().points[i].distance;
+      }
+    }
+  }
 }
