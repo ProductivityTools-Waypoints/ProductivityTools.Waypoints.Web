@@ -26,7 +26,7 @@
               </td>
               <td>{{ point.odometer ?? 0 }}</td>
               <td>{{ point.distance }}
-                <button (click)="$event.stopPropagation(); recalculateDistance(point, $index)">{{point.distance}}</button>
+                <button (click)="$event.stopPropagation(); recalculateDistance(point, $index)">{{point.cumulativeDistnace}}</button>
               </td>
               <td>
                 <button (click)="$event.stopPropagation(); insertPointMobile(point, $index)">Insert</button>

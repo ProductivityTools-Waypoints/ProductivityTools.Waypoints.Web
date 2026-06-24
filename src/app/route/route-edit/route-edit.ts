@@ -64,6 +64,6 @@ export class RouteEdit {
   }
 
   addPoint() {
-    this.routeInput.points.push({ name: '', odometer: 0, distance: 0 , comment:''});
+    this.routeInput.points.push(new Point('', 0, 0, ''));
   }
 }

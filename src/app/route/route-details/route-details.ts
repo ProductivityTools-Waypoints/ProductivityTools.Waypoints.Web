@@ -14,7 +14,12 @@ import { Point } from '../models/point';
 })
 export class RouteDetails implements OnInit {
 
-  constructor(private router: Router, private route: ActivatedRoute, private routeService: RouteService) { }
+  
+
+  constructor(private router: Router,
+     private route: ActivatedRoute,
+      private routeService: RouteService,
+  ) { }
 
   routeDetails = signal<Route>(null as any);
 
@@ -91,19 +96,30 @@ export class RouteDetails implements OnInit {
   }
 
   recalculateDistance(point:any, index:number){
-    let cumulativeDistnace:number=0;
-    for(let i=0;i<this.routeDetails().points.length;i++)
-    {
-      if (i<index)
-      {
-        this.routeDetails().points[i].cumulativeDistnace=0;
-      }
-      else
-      {
-        
-        this.routeDetails().points[i].cumulativeDistnace=cumulativeDistnace;
-        cumulativeDistnace=+this.routeDetails().points[i].distance;
+   console.log('recalculateDistance', point);
+    const currentRoute = this.routeDetails();
+    if (!currentRoute || !currentRoute.points) return;
+    // 1. Clone the points array and clone each point object to allow mutation safely
+    const updatedPoints = currentRoute.points.map(p => ({ ...p }));
+    // 2. Perform the calculation
+    let cumulativeDistance = 0;
+
+    for (let i = 0; i < updatedPoints.length; i++) {
+      if (i <= index) {
+        // All points before and including the chosen starting point have 0 cumulative distance
+        updatedPoints[i].cumulativeDistnace = 0;
+      } else {
+        // Accumulate distance starting from the point AFTER the chosen one
+        cumulativeDistance += +(updatedPoints[i].distance || 0);
+        updatedPoints[i].cumulativeDistnace = cumulativeDistance;
       }
     }
+    // 3. Update the signal with the new route object (triggers UI refresh safely)
+    this.routeDetails.set({
+      ...currentRoute,
+      points: updatedPoints
+    });
+
+     
   }
 }
