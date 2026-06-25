@@ -5,10 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Route } from '../models/route';
 import { Point } from '../models/point';
+import { ConfirmDialog } from '../confirm-dialog/confirm-dialog';
 
 @Component({
   selector: 'app-route-details',
-  imports: [FormsModule, CommonModule, RouterLink],
+  imports: [FormsModule, CommonModule, RouterLink, ConfirmDialog],
   templateUrl: './route-details.html',
   styleUrl: './route-details.css',
 })
@@ -22,6 +23,10 @@ export class RouteDetails implements OnInit {
   ) { }
 
   routeDetails = signal<Route>(null as any);
+
+  showDeletePointConfirm = false;
+  pointToDelete: any = null;
+  indexToDelete: number | null = null;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -93,15 +98,32 @@ export class RouteDetails implements OnInit {
   }
 
   deletePointMobile(point: any, index: number) {
-    this.routeService.deletePoint(this.routeDetails(), index).subscribe({
-      next: (updatedRoute) => {
-        console.log('Point deleted and route saved successfully');
-        this.routeDetails.set(updatedRoute);
-      },
-      error: (error) => {
-        console.error('Error saving route after deleting point', error);
-      }
-    });
+    this.pointToDelete = point;
+    this.indexToDelete = index;
+    this.showDeletePointConfirm = true;
+  }
+
+  cancelDeletePoint() {
+    this.showDeletePointConfirm = false;
+    this.pointToDelete = null;
+    this.indexToDelete = null;
+  }
+
+  confirmDeletePoint() {
+    this.showDeletePointConfirm = false;
+    if (this.indexToDelete !== null) {
+      this.routeService.deletePoint(this.routeDetails(), this.indexToDelete).subscribe({
+        next: (updatedRoute) => {
+          console.log('Point deleted successfully');
+          this.routeDetails.set(updatedRoute);
+        },
+        error: (error) => {
+          console.error('Error deleting point', error);
+        }
+      });
+    }
+    this.pointToDelete = null;
+    this.indexToDelete = null;
   }
 
   recalculateDistance(index:number){

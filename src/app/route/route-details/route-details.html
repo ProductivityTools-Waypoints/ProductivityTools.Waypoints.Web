@@ -49,18 +49,26 @@
     <button (click)="addPointMobile()">Add Point</button>
     <button (click)="removeOdometers()">Remove Odometers</button>
 
-    <!-- Custom Delete Confirmation Modal -->
+    <!-- Reusable Delete Route Confirmation Modal -->
     @if (showDeleteConfirm) {
-      <div class="modal-backdrop" (click)="cancelDelete()">
-        <div class="modal-content" (click)="$event.stopPropagation()">
-          <h3>Delete Route</h3>
-          <p>Are you sure you want to delete the route <strong>{{ routeDetails().name }}</strong>? This action cannot be undone.</p>
-          <div class="modal-actions">
-            <button class="btn-cancel" (click)="cancelDelete()">Cancel</button>
-            <button class="btn-delete" (click)="confirmDelete()">Delete</button>
-          </div>
-        </div>
-      </div>
+      <app-confirm-dialog
+        [title]="'Delete Route'"
+        [message]="'Are you sure you want to delete the route &quot;' + routeDetails().name + '&quot;? This action cannot be undone.'"
+        [confirmText]="'Delete'"
+        (confirm)="confirmDelete()"
+        (cancel)="cancelDelete()">
+      </app-confirm-dialog>
+    }
+
+    <!-- Reusable Delete Point Confirmation Modal -->
+    @if (showDeletePointConfirm && pointToDelete) {
+      <app-confirm-dialog
+        [title]="'Delete Point'"
+        [message]="'Are you sure you want to delete the point &quot;' + pointToDelete.name + &quot;&quot;?'"
+        [confirmText]="'Delete'"
+        (confirm)="confirmDeletePoint()"
+        (cancel)="cancelDeletePoint()">
+      </app-confirm-dialog>
     }
   </div>
 }

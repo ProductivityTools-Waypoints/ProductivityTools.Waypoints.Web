@@ -9,6 +9,17 @@
       <button (click)="insertPointMobile()">Insert</button>
       <button (click)="deletePointMobile()">Delete</button>
       <button (click)="onCancel()">Cancel</button>
+
+      <!-- Reusable Delete Point Confirmation Modal -->
+      @if (showDeleteConfirm) {
+        <app-confirm-dialog
+          [title]="'Delete Point'"
+          [message]="'Are you sure you want to delete the point &quot;' + point.name + '&quot;?'"
+          [confirmText]="'Delete'"
+          (confirm)="confirmDelete()"
+          (cancel)="cancelDelete()">
+        </app-confirm-dialog>
+      }
   </div>
 } @else {
   <p>Loading point details...</p>

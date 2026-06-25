@@ -3,10 +3,11 @@ import { Point } from '../models/point';
 import { ActivatedRoute , Router} from '@angular/router';
 import { Route } from '../models/route';
 import { RouteService } from '../route.service';
+import { ConfirmDialog } from '../confirm-dialog/confirm-dialog';
 
 @Component({
   selector: 'app-point-details',
-  imports: [],
+  imports: [ConfirmDialog],
   templateUrl: './point-details.html',
   styleUrl: './point-details.css',
 })
@@ -15,6 +16,7 @@ export class PointDetails {
   route: Route | null = null;
   point: Point = new Point('', 0, 0,'');
   index: number | null = null;
+  showDeleteConfirm = false;
 
   constructor(
     private router:Router,
@@ -67,6 +69,15 @@ export class PointDetails {
   }
 
   deletePointMobile() {
+    this.showDeleteConfirm = true;
+  }
+
+  cancelDelete() {
+    this.showDeleteConfirm = false;
+  }
+
+  confirmDelete() {
+    this.showDeleteConfirm = false;
     console.log("Delete Point", this.point, 'index:', this.index);
     if (this.index === null || !this.route) return;
 
