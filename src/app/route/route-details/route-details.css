@@ -65,3 +65,108 @@ button:last-child {
 .clickable-row {
   cursor: pointer;
 }
+
+/* Modal Backdrop Overlay */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.55); /* Dim background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Content Box */
+.modal-content {
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  max-width: 400px;
+  width: 90%;
+  box-sizing: border-box;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: #333;
+  font-size: 20px;
+}
+
+.modal-content p {
+  color: #555;
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0 0 24px 0;
+}
+
+/* Modal Action Buttons */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.btn-cancel, .btn-delete {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  margin-right: 0; /* Reset default margin */
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.btn-cancel {
+  background-color: #fff;
+  color: #555;
+}
+
+.btn-cancel:hover {
+  background-color: #f1f3f5;
+  border-color: #adb5bd;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: #fff;
+  border-color: #dc3545;
+}
+
+.btn-delete:hover {
+  background-color: #bd2130;
+  border-color: #bd2130;
+}
+
+/* Mobile responsive adjustments for Modal */
+@media screen and (max-width: 600px) {
+  .modal-actions {
+    width: 100%;
+  }
+
+  .modal-content .modal-actions > button {
+    display: inline-block;
+    width: auto;
+    margin-bottom: 0;
+    flex: 1;
+    padding: 12px;
+  }
+}

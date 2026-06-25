@@ -37,7 +37,18 @@ export class RouteDetails implements OnInit {
     });
   }
 
+  showDeleteConfirm = false;
+
   deleteRoute() {
+    this.showDeleteConfirm = true;
+  }
+
+  cancelDelete() {
+    this.showDeleteConfirm = false;
+  }
+
+  confirmDelete() {
+    this.showDeleteConfirm = false;
     console.log('Delete route: ', this.routeDetails());
     this.routeService.deleteRoute(this.routeDetails().id).subscribe({
       next: (response) => {
@@ -48,9 +59,6 @@ export class RouteDetails implements OnInit {
         console.error('Error deleting route', error);
       }
     });
-    // Implement delete logic here, e.g., call a delete method in the RouteService
-    // After deletion, navigate back to the route list
-    //this.router.navigate(['/route-list']);
   }
 
   addPointMobile() {

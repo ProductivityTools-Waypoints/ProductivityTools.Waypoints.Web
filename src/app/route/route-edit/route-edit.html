@@ -4,13 +4,4 @@ Route name:
 <input type="text" placeholder="Route name" [(ngModel)]="routeInput.name" (ngModelChange)="onRouteNameChange($event)"  /><br/>
 Route direction:
 <input type="text" placeholder="Route direction" [(ngModel)]="routeInput.direction" (ngModelChange)="onRouteDirectionChange($event)" /><br/>
-@if (routeInput.points && routeInput.points.length > 0) {
-    <h3>Points</h3>
-    <ul>
-        <li><point-edit *ngFor="let point of routeInput.points; let i = index" [point]="point" [points]="routeInput.points" [index]="i"></point-edit></li>
-    </ul>
-} @else {
-    <h3>No points</h3>
-}
 <button (click)="onSave()">Save</button>
-<button (click)="addPoint()">Add Point</button>

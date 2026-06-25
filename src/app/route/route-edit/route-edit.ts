@@ -5,11 +5,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Route, RouteInput } from '../models/route';
 import { RouteService } from '../route.service';
 import { Point } from '../models/point';
-import { PointEdit } from '../point-edit/point-edit';
 
 @Component({
   selector: 'app-route-edit',
-  imports: [CommonModule, FormsModule, PointEdit],
+  imports: [CommonModule, FormsModule],
   templateUrl: './route-edit.html',
   styleUrl: './route-edit.css',
 })

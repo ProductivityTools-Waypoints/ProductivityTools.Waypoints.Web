@@ -9,6 +9,7 @@
             <th>Name</th>
             <th>Odometer</th>
             <th>Distance</th>
+            <th>Cumulative</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -26,8 +27,9 @@
               </td>
               <td>{{ point.odometer ?? 0 }}</td>
               <td>{{ point.distance }}
-                <button (click)="$event.stopPropagation(); recalculateDistance($index)">{{point.cumulativeDistnace}}</button>
+                
               </td>
+              <td><button (click)="$event.stopPropagation(); recalculateDistance($index)">{{point.cumulativeDistnace}}</button></td>
               <td>
                 <button (click)="$event.stopPropagation(); insertPointMobile(point, $index)">Insert</button>
                 <button (click)="$event.stopPropagation(); deletePointMobile(point, $index)">Delete</button>
@@ -44,7 +46,21 @@
 
     <button [routerLink]="['/route-edit', routeDetails().id]">Edit Route</button>
     <button (click)="deleteRoute()">Delete Route</button>
-    <button (click)="addPointMobile()">Add Point Mobile</button>
+    <button (click)="addPointMobile()">Add Point</button>
     <button (click)="removeOdometers()">Remove Odometers</button>
+
+    <!-- Custom Delete Confirmation Modal -->
+    @if (showDeleteConfirm) {
+      <div class="modal-backdrop" (click)="cancelDelete()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+          <h3>Delete Route</h3>
+          <p>Are you sure you want to delete the route <strong>{{ routeDetails().name }}</strong>? This action cannot be undone.</p>
+          <div class="modal-actions">
+            <button class="btn-cancel" (click)="cancelDelete()">Cancel</button>
+            <button class="btn-delete" (click)="confirmDelete()">Delete</button>
+          </div>
+        </div>
+      </div>
+    }
   </div>
 }
