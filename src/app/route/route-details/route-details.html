@@ -64,7 +64,7 @@
     @if (showDeletePointConfirm && pointToDelete) {
       <app-confirm-dialog
         [title]="'Delete Point'"
-        [message]="'Are you sure you want to delete the point &quot;' + pointToDelete.name + &quot;&quot;?'"
+        [message]="'Are you sure you want to delete the point &quot;' + pointToDelete.name + '&quot;?'"
         [confirmText]="'Delete'"
         (confirm)="confirmDeletePoint()"
         (cancel)="cancelDeletePoint()">

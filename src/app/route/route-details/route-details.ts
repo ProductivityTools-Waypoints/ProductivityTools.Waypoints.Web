@@ -25,7 +25,7 @@ export class RouteDetails implements OnInit {
   routeDetails = signal<Route>(null as any);
 
   showDeletePointConfirm = false;
-  pointToDelete: any = null;
+  pointToDelete: Point | null = null;
   indexToDelete: number | null = null;
 
   ngOnInit(): void {
@@ -97,7 +97,7 @@ export class RouteDetails implements OnInit {
 
   }
 
-  deletePointMobile(point: any, index: number) {
+  deletePointMobile(point: Point, index: number) {
     this.pointToDelete = point;
     this.indexToDelete = index;
     this.showDeletePointConfirm = true;
