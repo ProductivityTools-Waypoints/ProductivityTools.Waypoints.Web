@@ -37,8 +37,8 @@ button:last-child {
 /* Mobile Styles */
 @media screen and (max-width: 600px) {
   /* Hide the Actions column (4th column) on mobile */
-  th:nth-child(4),
-  td:nth-child(4) {
+  th:nth-child(5),
+  td:nth-child(5) {
     display: none;
   }
 
