@@ -1,21 +1,22 @@
-<p>route-list works!</p>
-
 @if (routes$ | async; as routes) {
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let route of routes">     
-      <td>
-        <a [routerLink]="['/route-details', route.id]">{{ route.id }}</a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  @if (routes.length > 0) {
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let route of routes">     
+          <td>
+            <a [routerLink]="['/route-details', route.id]">{{ route.id }}</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  } @else {
+    <p class="empty-message">No routes available.</p>
+  }
 } @else {
-<p>No routes available.</p>
+  <p class="loading-message">Route list loading... Please wait.</p>
 }

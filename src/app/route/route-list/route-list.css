@@ -31,3 +31,10 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+/* Loading and Empty Message Styles */
+.loading-message, .empty-message {
+  color: #6b7280;
+  font-size: 15px;
+  margin: 20px 0;
+}
