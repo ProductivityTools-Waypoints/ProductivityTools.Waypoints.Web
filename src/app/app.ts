@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet, Router } from '@angular/router';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,4 +10,19 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 })
 export class App {
   protected readonly title = signal('ProductivityTools.Waypoints.Web');
+
+  // Expose reactive auth signals directly to the template via getters
+  get user() { return this.authService.user; }
+  get loading() { return this.authService.loading; }
+
+  constructor(private authService: AuthService, private router: Router) {}
+
+  onSignOut() {
+    this.authService.signOut().then(() => {
+      console.log('App: User signed out successfully, redirecting to /home');
+      this.router.navigate(['/home']);
+    }).catch((error) => {
+      console.error('App: Error signing out:', error);
+    });
+  }
 }

@@ -3,12 +3,28 @@
     <li class="menu-item">
         <a routerLink="/" routerLinkActive="active">Home</a>
     </li>
-    <li class="menu-item">
-        <a routerLink="/route-list" routerLinkActive="active">View routes</a>
-    </li>
-    <li class="menu-item">
-        <a routerLink="/route-edit" routerLinkActive="active">Add route</a>
-    </li>
     
+    @if (!loading()) {
+      @if (user()) {
+        <li class="menu-item">
+            <a routerLink="/route-list" routerLinkActive="active">View routes</a>
+        </li>
+        <li class="menu-item">
+            <a routerLink="/route-edit" routerLinkActive="active">Add route</a>
+        </li>
+        
+        <!-- Float account actions to the right of the menu bar -->
+        <li class="menu-item right">
+            <button class="btn-signout" (click)="onSignOut()">Sign Out</button>
+        </li>
+        <li class="menu-item right user-info">
+            <span>Logged in as: <strong>{{ user()?.email }}</strong></span>
+        </li>
+      } @else {
+        <li class="menu-item right">
+            <a routerLink="/login" routerLinkActive="active">Sign In</a>
+        </li>
+      }
+    }
 </ul>
 <router-outlet />

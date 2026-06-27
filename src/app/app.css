@@ -40,3 +40,37 @@
     color: white;
     background-color: lightskyblue;
 }
+
+/* Float account actions to the right of the menu bar */
+.menu-item.right {
+    float: right;
+}
+
+/* User Info text style in header */
+.menu-item.user-info {
+    display: block;
+    padding: 14px 16px;
+    color: #555;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* Sign Out button to look like a menu item */
+.btn-signout {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    font-size: 16px; /* Matches menu link font size */
+    font-family: inherit;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.15s;
+}
+
+.btn-signout:hover {
+    background-color: #ddd;
+}
