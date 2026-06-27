@@ -65,4 +65,12 @@ export class RouteEdit {
   addPoint() {
     this.routeInput.points.push(new Point('', 0, 0, ''));
   }
+
+  onCancel() {
+    if (this.id) {
+      this.router.navigate(['/route-details', this.id]);
+    } else {
+      this.router.navigate(['/route-list']);
+    }
+  }
 }

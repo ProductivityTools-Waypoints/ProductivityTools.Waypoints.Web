@@ -1,7 +1,22 @@
-<p>route-edit works!</p>
-Route id: {{ routeInput.id }} <br/>
-Route name:
-<input type="text" placeholder="Route name" [(ngModel)]="routeInput.name" (ngModelChange)="onRouteNameChange($event)"  /><br/>
-Route direction:
-<input type="text" placeholder="Route direction" [(ngModel)]="routeInput.direction" (ngModelChange)="onRouteDirectionChange($event)" /><br/>
-<button (click)="onSave()">Save</button>
+<div class="route-editor">
+  <h2>{{ id ? 'Edit Route' : 'Create Route' }}</h2>
+  
+  @if (routeInput.id) {
+    <div class="route-id-badge">ID: {{ routeInput.id }}</div>
+  }
+  
+  <div class="field-group">
+    <label>Route Name</label>
+    <input type="text" placeholder="e.g. Summer Vacation" [(ngModel)]="routeInput.name" (ngModelChange)="onRouteNameChange($event)" />
+  </div>
+  
+  <div class="field-group">
+    <label>Direction</label>
+    <input type="text" placeholder="e.g. Northbound" [(ngModel)]="routeInput.direction" (ngModelChange)="onRouteDirectionChange($event)" />
+  </div>
+  
+  <div class="form-actions">
+    <button class="btn-save" (click)="onSave()">Save</button>
+    <button class="btn-cancel" (click)="onCancel()">Cancel</button>
+  </div>
+</div>

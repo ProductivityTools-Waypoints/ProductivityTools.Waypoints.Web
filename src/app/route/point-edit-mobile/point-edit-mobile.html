@@ -1,23 +1,30 @@
 @if (point) {
   <div class="point-editor">
     <h2>{{ isEdit ? 'Edit Point' : 'Add Point' }}</h2>
+    
     <div class="field-group">
       <label>Name</label>
-      <input type="text" [(ngModel)]="point.name" placeholder="Point Name" />
+      <input type="text" [(ngModel)]="point.name" placeholder="e.g. Gas Station" />
     </div>
+    
     <div class="field-group">
       <label>Odometer</label>
-      <input type="number" [(ngModel)]="point.odometer" (ngModelChange)="onOdometerChange($event)" placeholder="Odometer" />
+      <input type="number" [(ngModel)]="point.odometer" (ngModelChange)="onOdometerChange($event)" placeholder="e.g. 10450" />
     </div>
+    
     <div class="field-group">
-      <label>Distance</label>
-      <input type="number" [(ngModel)]="point.distance" placeholder="Distance" />
+      <label>Distance (from previous)</label>
+      <input type="number" [(ngModel)]="point.distance" placeholder="e.g. 12.5" />
     </div>
-        <div class="field-group">
+    
+    <div class="field-group">
       <label>Comment</label>
-      <input type="text" [(ngModel)]="point.comment" placeholder="Comment" />
+      <input type="text" [(ngModel)]="point.comment" placeholder="e.g. Stop for coffee" />
     </div>
-    <button (click)="onSave()">Save</button>
-    <button (click)="onCancel()">Cancel</button>
+    
+    <div class="form-actions">
+      <button class="btn-save" (click)="onSave()">Save</button>
+      <button class="btn-cancel" (click)="onCancel()">Cancel</button>
+    </div>
   </div>
 }
