@@ -1,4 +1,3 @@
-// Build trigger: 2026-06-25T21:30:00 (Forces unique build hash for deployment)
 import { Component, signal } from '@angular/core';
 import { RouterLink, RouterOutlet, Router } from '@angular/router';
 import { AuthService } from './auth/auth.service';
