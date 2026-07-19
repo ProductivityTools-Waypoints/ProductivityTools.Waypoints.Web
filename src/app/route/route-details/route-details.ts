@@ -66,6 +66,19 @@ export class RouteDetails implements OnInit {
     });
   }
 
+  duplicateRoute() {
+    console.log('Duplicate route: ', this.routeDetails().id);
+    this.routeService.duplicateRoute(this.routeDetails().id).subscribe({
+      next: (response) => {
+        console.log('Route duplicated successfully', response);
+        this.router.navigate(['/route-list']);
+      },
+      error: (error) => {
+        console.error('Error duplicating route', error);
+      }
+    });
+  }
+
   addPointMobile() {
     console.log('Add point');
     this.router.navigate(['/point-add', this.routeDetails().id]);

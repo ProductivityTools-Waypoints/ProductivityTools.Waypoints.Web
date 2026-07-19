@@ -37,6 +37,22 @@ export const DELETE_ROUTE = gql`
   }
 `;
 
+export const DUPLICATE_ROUTE = gql`
+  mutation DuplicateRoute($id: String!) {
+    DuplicateRoute(id: $id) {
+      id
+      name
+      direction
+      points {
+        name
+        odometer
+        distance
+        comment
+      }
+    }
+  }
+`;
+
 export const REMOVE_ODOMETERS = gql`
   mutation RemoveOdometers($id: String!) {
     RemoveOdometers(id: $id) {

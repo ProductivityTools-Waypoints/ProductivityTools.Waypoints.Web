@@ -3,7 +3,7 @@ import { Route, RouteInput } from './models/route';
 import { Point } from './models/point';
 import { Observable } from 'rxjs';
 import { Apollo, QueryRef } from 'apollo-angular';
-import { SAVE_ROUTE, GET_ROUTES, GET_ROUTE, DELETE_ROUTE , REMOVE_ODOMETERS} from '../graphql.queries';
+import { SAVE_ROUTE, GET_ROUTES, GET_ROUTE, DELETE_ROUTE , REMOVE_ODOMETERS, DUPLICATE_ROUTE} from '../graphql.queries';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -77,6 +77,17 @@ export class RouteService {
     }).pipe(
       map((result: any) => {
         return result.data.DeleteRoute;
+      })
+    );
+  }
+
+  duplicateRoute(id: string): Observable<any> {
+    return this.apollo.mutate<{ DuplicateRoute: any }>({
+      mutation: DUPLICATE_ROUTE,
+      variables: { id }
+    }).pipe(
+      map((result: any) => {
+        return result.data?.DuplicateRoute;
       })
     );
   }
