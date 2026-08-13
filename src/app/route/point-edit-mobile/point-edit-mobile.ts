@@ -62,7 +62,7 @@ export class PointEditMobile implements OnInit {
     if (this.isEdit && this.index !== null && this.route.points[this.index]) {
       this.point = this.route.points[this.index];
     } else {
-      this.point = new Point('', 0, 0,'');
+      this.point = new Point('', null, 0, '');
       if (this.index === null) {
         this.index = this.route.points.length;
       }
@@ -71,11 +71,10 @@ export class PointEditMobile implements OnInit {
   }
 
   onOdometerChange(value: number) {
-    if (this.route && this.index !== null && this.index > 0) {
+    if (!this.isEdit && this.route && this.index !== null && this.index > 0) {
       const prevPoint = this.route.points[this.index - 1];
-      if (prevPoint) {
-        const prevOdometer = prevPoint.odometer || 0;
-        this.point.distance = value - prevOdometer;
+      if (prevPoint && prevPoint.odometer !== null && prevPoint.odometer !== undefined) {
+        this.point.distance = value - prevPoint.odometer;
       }
     }
   }
@@ -83,22 +82,35 @@ export class PointEditMobile implements OnInit {
   onSave() {
     console.log('Saving point:', this.point, this.route);
     if (this.route && this.point) {
+      let targetIndex = this.index;
       if (!this.isEdit) {
         if (this.index !== null) {
           this.route.points.splice(this.index, 0, this.point);
           if (this.index + 1 < this.route.points.length) {
-            this.route.points[this.index+1].distance = this.route.points[this.index+1].distance - this.point.distance;
+            this.route.points[this.index + 1].distance =
+              (this.route.points[this.index + 1].distance || 0) - (this.point.distance || 0);
           }
         } else {
           this.route.points.push(this.point);
+          targetIndex = this.route.points.length - 1;
+        }
+
+        if ((this.point.odometer === null || this.point.odometer === undefined) && targetIndex !== null && targetIndex > 0) {
+          const prevPoint = this.route.points[targetIndex - 1];
+          if (prevPoint && prevPoint.odometer !== null && prevPoint.odometer !== undefined) {
+            this.point.odometer = prevPoint.odometer + (this.point.distance || 0);
+          }
         }
       }
       
-      const startIndex = (this.index !== null && this.index > 0) ? this.index : 1;
-      for (let i = startIndex; i < this.route.points.length; i++) {
-        const prevPoint = this.route.points[i - 1];
-        const currentPoint = this.route.points[i];
-        currentPoint.odometer = (prevPoint.odometer || 0) + currentPoint.distance;
+      if (targetIndex !== null && this.point.odometer !== null && this.point.odometer !== undefined) {
+        for (let i = targetIndex + 1; i < this.route.points.length; i++) {
+          const prevPoint = this.route.points[i - 1];
+          const currentPoint = this.route.points[i];
+          if (prevPoint.odometer !== null && prevPoint.odometer !== undefined) {
+            currentPoint.odometer = prevPoint.odometer + (currentPoint.distance || 0);
+          }
+        }
       }
 
       this.routeService.save(this.route).subscribe({

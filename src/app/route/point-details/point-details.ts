@@ -64,8 +64,10 @@ export class PointDetails {
     }
   }
 
-  insertPointMobile(){
-
+  insertPointMobile() {
+    if (this.route && this.index !== null) {
+      this.router.navigate(['/point-insert', this.route.id], { queryParams: { index: this.index } });
+    }
   }
 
   deletePointMobile() {
