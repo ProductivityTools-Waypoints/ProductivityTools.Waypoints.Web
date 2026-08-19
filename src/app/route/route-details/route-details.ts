@@ -89,11 +89,13 @@ export class RouteDetails implements OnInit {
       next: (response) => {
         console.log('Odometers removed successfully', response);
         this.routeDetails.set({ ...this.routeDetails(), points: response.points });
+        this.recalculateDistance(0);
       },
       error: (error) => {
         console.error('Error removing odometers', error);
       }
     });
+    
   }
 
   insertPointMobile(point :any, index: number){
