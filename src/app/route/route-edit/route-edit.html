@@ -1,18 +1,23 @@
 <div class="route-editor">
   <h2>{{ id ? 'Edit Route' : 'Create Route' }}</h2>
   
-  @if (routeInput.id) {
-    <div class="route-id-badge">ID: {{ routeInput.id }}</div>
+  @if (generatedId) {
+    <div class="route-id-badge">ID: {{ generatedId }}</div>
   }
   
   <div class="field-group">
-    <label>Route Name</label>
-    <input type="text" placeholder="e.g. Summer Vacation" [(ngModel)]="routeInput.name" (ngModelChange)="onRouteNameChange($event)" />
+    <label>Source</label>
+    <input type="text" placeholder="e.g. Home" [(ngModel)]="routeInput.source" />
+  </div>
+
+  <div class="field-group">
+    <label>Route</label>
+    <input type="text" placeholder="e.g. A1" [(ngModel)]="routeInput.route" />
   </div>
   
   <div class="field-group">
-    <label>Direction</label>
-    <input type="text" placeholder="e.g. Northbound" [(ngModel)]="routeInput.direction" (ngModelChange)="onRouteDirectionChange($event)" />
+    <label>Destination</label>
+    <input type="text" placeholder="e.g. Work" [(ngModel)]="routeInput.destination" />
   </div>
   
   <div class="form-actions">

@@ -14,7 +14,7 @@ import { Point } from '../models/point';
 })
 export class RouteEdit {
   @Input() id?: string;
-  routeInput: RouteInput = new RouteInput('', '', '');
+  routeInput: RouteInput = new RouteInput('', '', '', '');
 
   constructor(private routeService: RouteService, 
     private route: ActivatedRoute, 
@@ -28,7 +28,12 @@ export class RouteEdit {
       this.routeService.getRoute(this.id).subscribe({
         next: (route: Route) => {
           console.log('RouteDetails route: ', route)
-          const copiedRoute = new RouteInput(route.id, route.name, route.direction);
+          const copiedRoute = new RouteInput(
+            route.id,
+            route.source || '',
+            route.route || '',
+            route.destination || ''
+          );
           copiedRoute.points = route.points ? route.points.map(p => new Point(p.name, p.odometer, p.distance,p.comment)) : [];
           this.routeInput = copiedRoute;
           console.log('route Input route: ', route);
@@ -39,14 +44,14 @@ export class RouteEdit {
     }
   }
 
-  onRouteNameChange(newName: string) {
-    console.log('Route name changed: ', newName);
-    this.routeInput.id = newName + '-' + this.routeInput.direction;
-  }
-
-  onRouteDirectionChange(newDirection: string) {
-    console.log('Route direction changed: ', newDirection);
-    this.routeInput.id = this.routeInput.name + '-' + newDirection;
+  get generatedId(): string {
+    const s = (this.routeInput.source || '').trim();
+    const r = (this.routeInput.route || '').trim();
+    const d = (this.routeInput.destination || '').trim();
+    if (!s && !r && !d) {
+      return this.routeInput.id;
+    }
+    return `${s}-${r}-${d}`;
   }
 
   onSave() {

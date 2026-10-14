@@ -1,6 +1,6 @@
 @if (routeDetails()) {
   <div>
-    <b>{{ routeDetails().name }} - {{ routeDetails().direction }}</b><br/>
+    <b>{{ routeDetails().source ? (routeDetails().source + ' - ' + routeDetails().route + ' - ' + routeDetails().destination) : routeDetails().id }}</b><br/>
     
     @if (routeDetails().points && routeDetails().points.length > 0) {
       <table>
@@ -54,7 +54,7 @@
     @if (showDeleteConfirm) {
       <app-confirm-dialog
         [title]="'Delete Route'"
-        [message]="'Are you sure you want to delete the route &quot;' + routeDetails().name + '&quot;? This action cannot be undone.'"
+        [message]="'Are you sure you want to delete the route &quot;' + routeDetails().id + '&quot;? This action cannot be undone.'"
         [confirmText]="'Delete'"
         (confirm)="confirmDelete()"
         (cancel)="cancelDelete()">

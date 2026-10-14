@@ -35,8 +35,9 @@ export class RouteService {
 
     const cleanRoute = {
       id: route.id,
-      name: route.name,
-      direction: route.direction,
+      source: route.source,
+      route: route.route,
+      destination: route.destination,
       points: cleanPoints
     };
 
@@ -125,13 +126,13 @@ export class RouteService {
     updatedPoints.splice(index, 1);
 
     // 4. Reconstruct the route and points using classes to strip __typename
-    const cleanRoute = new RouteInput(route.id, route.name, route.direction);
+    const cleanRoute = new RouteInput(route.id, route.source, route.route, route.destination);
     cleanRoute.points = updatedPoints.map(p => new Point(p.name, p.odometer, p.distance, p.comment));
 
     // 5. Save the changes to the backend and return the updated Route
     return this.save(cleanRoute).pipe(
       map(() => {
-        const updatedRoute = new Route(route.id, route.name, route.direction);
+        const updatedRoute = new Route(route.id, route.source, route.route, route.destination);
         updatedRoute.points = cleanRoute.points;
         return updatedRoute;
       })

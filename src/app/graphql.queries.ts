@@ -19,8 +19,9 @@ export const SAVE_ROUTE = gql`
   mutation SaveRoute($route: RouteInput!) {
     SaveRoute(route: $route) {
       id
-      name
-      direction
+      source
+      route
+      destination
       points {
         name
         odometer
@@ -41,8 +42,9 @@ export const DUPLICATE_ROUTE = gql`
   mutation DuplicateRoute($id: String!) {
     DuplicateRoute(id: $id) {
       id
-      name
-      direction
+      source
+      route
+      destination
       points {
         name
         odometer
@@ -57,8 +59,9 @@ export const REMOVE_ODOMETERS = gql`
   mutation RemoveOdometers($id: String!) {
     RemoveOdometers(id: $id) {
       id
-      name
-      direction
+      source
+      route
+      destination
       points {
         name
         odometer
@@ -73,9 +76,10 @@ export const REMOVE_ODOMETERS = gql`
 export const GET_ROUTES = gql`
   query {
     getRoutes { 
-      id,
-      name
-      direction
+      id
+      source
+      route
+      destination
     }
   }
 `;
@@ -84,8 +88,9 @@ export const GET_ROUTE = gql`
   query GetRoute($id: ID!) {
     getRoute(id: $id) {
       id
-      name
-      direction
+      source
+      route
+      destination
       points {
         name
         odometer
