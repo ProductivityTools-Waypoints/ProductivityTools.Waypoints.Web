@@ -2,7 +2,141 @@
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin-top: 12px;
+}
+
+/* Type Filter Bar */
+.type-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+  margin-bottom: 12px;
+}
+
+.type-filter-bar .filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  margin-right: 0;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 999px;
+  border: 1px solid #dee2e6;
+  background-color: #fff;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+
+.type-filter-bar .filter-btn:hover {
+  background-color: #f8f9fa;
+}
+
+.type-filter-bar .filter-btn.filter-all.active {
+  background-color: #343a40;
+  color: #fff;
+  border-color: #343a40;
+}
+
+.type-filter-bar .filter-btn.filter-food {
+  color: #d9480f;
+}
+.type-filter-bar .filter-btn.filter-food.active {
+  background-color: #d9480f;
+  color: #fff;
+  border-color: #d9480f;
+}
+
+.type-filter-bar .filter-btn.filter-gas {
+  color: #1971c2;
+}
+.type-filter-bar .filter-btn.filter-gas.active {
+  background-color: #1971c2;
+  color: #fff;
+  border-color: #1971c2;
+}
+
+.type-filter-bar .filter-btn.filter-limit {
+  color: #c92a2a;
+}
+.type-filter-bar .filter-btn.filter-limit.active {
+  background-color: #c92a2a;
+  color: #fff;
+  border-color: #c92a2a;
+}
+
+.type-filter-bar .filter-btn.filter-mop {
+  color: #2b8a3e;
+}
+.type-filter-bar .filter-btn.filter-mop.active {
+  background-color: #2b8a3e;
+  color: #fff;
+  border-color: #2b8a3e;
+}
+
+.type-filter-bar .filter-btn.filter-gates {
+  color: #5f3dc4;
+}
+.type-filter-bar .filter-btn.filter-gates.active {
+  background-color: #5f3dc4;
+  color: #fff;
+  border-color: #5f3dc4;
+}
+
+/* Point Name & Type Badge in Table */
+.point-name-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.point-type-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.point-type-icon.type-food {
+  color: #d9480f;
+  background-color: #fff4e6;
+  border: 1px solid #ffd8a8;
+}
+
+.point-type-icon.type-gas {
+  color: #1971c2;
+  background-color: #e7f5ff;
+  border: 1px solid #a5d8ff;
+}
+
+.point-type-icon.type-limit {
+  color: #c92a2a;
+  background-color: #fff5f5;
+  border: 1px solid #ffc9c9;
+}
+
+.point-type-icon.type-mop {
+  color: #2b8a3e;
+  background-color: #ebfbee;
+  border: 1px solid #b2f2bb;
+}
+
+.point-type-icon.type-gates {
+  color: #5f3dc4;
+  background-color: #f3f0ff;
+  border: 1px solid #d0bfff;
+}
+
+.empty-filter-row {
+  text-align: center;
+  color: #6c757d;
+  padding: 16px;
+  font-style: italic;
 }
 
 th, td {
@@ -59,6 +193,16 @@ button:last-child {
   
   div > button:last-child {
     margin-bottom: 0;
+  }
+
+  /* Keep filter buttons compact inline pills on mobile */
+  .type-filter-bar > button.filter-btn {
+    display: inline-flex;
+    width: auto;
+    margin-bottom: 0;
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 999px;
   }
 }
 

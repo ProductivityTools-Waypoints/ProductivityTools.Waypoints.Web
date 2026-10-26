@@ -3,6 +3,76 @@
     <b>{{ routeDetails().source ? (routeDetails().source + ' - ' + routeDetails().route + ' - ' + routeDetails().destination) : routeDetails().id }}</b><br/>
     
     @if (routeDetails().points && routeDetails().points.length > 0) {
+      <div class="type-filter-bar">
+        <button
+          type="button"
+          class="filter-btn filter-all"
+          [class.active]="selectedType() === null"
+          (click)="setFilter(null)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="8" y1="6" x2="21" y2="6"/>
+            <line x1="8" y1="12" x2="21" y2="12"/>
+            <line x1="8" y1="18" x2="21" y2="18"/>
+            <line x1="3" y1="6" x2="3.01" y2="6"/>
+            <line x1="3" y1="12" x2="3.01" y2="12"/>
+            <line x1="3" y1="18" x2="3.01" y2="18"/>
+          </svg>
+          <span>All</span>
+        </button>
+        @for (t of pointTypes; track t) {
+          <button
+            type="button"
+            class="filter-btn"
+            [ngClass]="'filter-' + t.toLowerCase()"
+            [class.active]="selectedType() === t"
+            (click)="setFilter(t)">
+            @switch (t) {
+              @case ('Food') {
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
+                  <path d="M7 2v20"/>
+                  <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>
+                </svg>
+              }
+              @case ('Gas') {
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="3" y1="22" x2="15" y2="22"/>
+                  <line x1="4" y1="9" x2="14" y2="9"/>
+                  <path d="M14 22V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v18"/>
+                  <path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V9.83a2 2 0 0 0-.59-1.42L18 5"/>
+                </svg>
+              }
+              @case ('Limit') {
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M7.5 15.5a6.5 6.5 0 1 1 9 0"/>
+                  <path d="M12 12l3.5-3.5"/>
+                  <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                </svg>
+              }
+              @case ('MOP') {
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3 5 12h4l-3 6h12l-3-6h4L12 3z"/>
+                  <line x1="12" y1="18" x2="12" y2="22"/>
+                  <line x1="8" y1="22" x2="16" y2="22"/>
+                </svg>
+              }
+              @case ('Gates') {
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="10" width="4" height="11" rx="1"/>
+                  <path d="M6 12h15a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1H6v4z"/>
+                  <line x1="10" y1="8" x2="8" y2="12"/>
+                  <line x1="15" y1="8" x2="13" y2="12"/>
+                  <line x1="20" y1="8" x2="18" y2="12"/>
+                  <line x1="1" y1="21" x2="7" y2="21"/>
+                </svg>
+              }
+            }
+            <span>{{ t }}</span>
+          </button>
+        }
+      </div>
+
       <table>
         <thead>
           <tr>
@@ -14,28 +84,80 @@
           </tr>
         </thead>
         <tbody>
-          @for (point of routeDetails().points; track point.name) {
-            <tr (click)="openDetails(point, $index)" class="clickable-row">
+          @for (item of filteredPoints(); track item.originalIndex) {
+            <tr (click)="openDetails(item.point, item.originalIndex)" class="clickable-row">
               <td>
-                {{ point.name }}
-                @if (point.comment) {
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="vertical-align: middle; margin-left: 6px; color: #0056b3;" title="Has comment">
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-                  </svg>
-                }
+                <div class="point-name-cell">
+                  @for (t of item.point.types ?? []; track t) {
+                    <span [class]="'point-type-icon type-' + t.toLowerCase()" [title]="t">
+                      @switch (t) {
+                        @case ('Food') {
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
+                            <path d="M7 2v20"/>
+                            <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>
+                          </svg>
+                        }
+                        @case ('Gas') {
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="3" y1="22" x2="15" y2="22"/>
+                            <line x1="4" y1="9" x2="14" y2="9"/>
+                            <path d="M14 22V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v18"/>
+                            <path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V9.83a2 2 0 0 0-.59-1.42L18 5"/>
+                          </svg>
+                        }
+                        @case ('Limit') {
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M7.5 15.5a6.5 6.5 0 1 1 9 0"/>
+                            <path d="M12 12l3.5-3.5"/>
+                            <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                          </svg>
+                        }
+                        @case ('MOP') {
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 3 5 12h4l-3 6h12l-3-6h4L12 3z"/>
+                            <line x1="12" y1="18" x2="12" y2="22"/>
+                            <line x1="8" y1="22" x2="16" y2="22"/>
+                          </svg>
+                        }
+                        @case ('Gates') {
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="10" width="4" height="11" rx="1"/>
+                            <path d="M6 12h15a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1H6v4z"/>
+                            <line x1="10" y1="8" x2="8" y2="12"/>
+                            <line x1="15" y1="8" x2="13" y2="12"/>
+                            <line x1="20" y1="8" x2="18" y2="12"/>
+                            <line x1="1" y1="21" x2="7" y2="21"/>
+                          </svg>
+                        }
+                      }
+                    </span>
+                  }
+                  <span>{{ item.point.name }}</span>
+                  @if (item.point.comment) {
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="vertical-align: middle; margin-left: 4px; color: #0056b3;" title="Has comment">
+                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                      <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                    </svg>
+                  }
+                </div>
               </td>
-              <td>{{ point.odometer ?? 0 }}</td>
-              <td>{{ point.distance }}
+              <td>{{ item.point.odometer ?? 0 }}</td>
+              <td>{{ item.point.distance }}
                 
               </td>
-              <td><button (click)="$event.stopPropagation(); recalculateDistance($index)">{{point.cumulativeDistnace}}</button></td>
+              <td><button (click)="$event.stopPropagation(); recalculateDistance(item.originalIndex)">{{item.point.cumulativeDistnace}}</button></td>
               <td>
-                <button (click)="$event.stopPropagation(); insertPointMobile(point, $index)">Insert</button>
-                <button (click)="$event.stopPropagation(); deletePointMobile(point, $index)">Delete</button>
-                <button (click)="$event.stopPropagation(); editPointMobile(point, $index)">Edit</button>
-                <button (click)="$event.stopPropagation(); openDetails(point, $index)">Details</button>
+                <button (click)="$event.stopPropagation(); insertPointMobile(item.point, item.originalIndex)">Insert</button>
+                <button (click)="$event.stopPropagation(); deletePointMobile(item.point, item.originalIndex)">Delete</button>
+                <button (click)="$event.stopPropagation(); editPointMobile(item.point, item.originalIndex)">Edit</button>
+                <button (click)="$event.stopPropagation(); openDetails(item.point, item.originalIndex)">Details</button>
               </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="5" class="empty-filter-row">No points match the selected filter.</td>
             </tr>
           }
         </tbody>

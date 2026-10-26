@@ -1,10 +1,10 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, computed, signal } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router, RouterLink } from '@angular/router';
 import { RouteService } from '../route.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Route } from '../models/route';
-import { Point } from '../models/point';
+import { Point, POINT_TYPES } from '../models/point';
 import { ConfirmDialog } from '../confirm-dialog/confirm-dialog';
 
 @Component({
@@ -15,14 +15,31 @@ import { ConfirmDialog } from '../confirm-dialog/confirm-dialog';
 })
 export class RouteDetails implements OnInit {
 
-  
-
   constructor(private router: Router,
      private route: ActivatedRoute,
       private routeService: RouteService,
   ) { }
 
   routeDetails = signal<Route>(null as any);
+  pointTypes = POINT_TYPES;
+  selectedType = signal<string | null>(null);
+
+  filteredPoints = computed(() => {
+    const route = this.routeDetails();
+    if (!route || !route.points) return [];
+    const filter = this.selectedType();
+    return route.points
+      .map((point, originalIndex) => ({ point, originalIndex }))
+      .filter(item => !filter || (item.point.types ?? []).includes(filter));
+  });
+
+  setFilter(type: string | null) {
+    if (type !== null && this.selectedType() === type) {
+      this.selectedType.set(null);
+    } else {
+      this.selectedType.set(type);
+    }
+  }
 
   showDeletePointConfirm = false;
   pointToDelete: Point | null = null;
@@ -131,6 +148,7 @@ export class RouteDetails implements OnInit {
         next: (updatedRoute) => {
           console.log('Point deleted successfully');
           this.routeDetails.set(updatedRoute);
+          this.recalculateDistance(0);
         },
         error: (error) => {
           console.error('Error deleting point', error);

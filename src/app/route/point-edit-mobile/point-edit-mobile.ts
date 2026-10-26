@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouteService } from '../route.service';
-import { Point } from '../models/point';
+import { Point, POINT_TYPES } from '../models/point';
 import { Route } from '../models/route';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -19,6 +19,7 @@ export class PointEditMobile implements OnInit {
   route: Route | null = null;
   point: Point = new Point('', 0, 0,'');
   isEdit = false;
+  pointTypes = POINT_TYPES;
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -36,7 +37,7 @@ export class PointEditMobile implements OnInit {
       if (this.routeId) {
         this.routeService.getRoute(this.routeId).subscribe(route => {
           const copiedRoute = new Route(route.id, route.source, route.route, route.destination);
-          copiedRoute.points = route.points ? route.points.map(p => new Point(p.name, p.odometer, p.distance,p.comment)) : [];
+          copiedRoute.points = route.points ? route.points.map(p => new Point(p.name, p.odometer, p.distance, p.comment, p.types)) : [];
           this.route = copiedRoute;
           this.setupPoint();
         });
@@ -68,6 +69,17 @@ export class PointEditMobile implements OnInit {
       }
     }
     this.cdr.detectChanges();
+  }
+
+  clearTypes() {
+    this.point.types = [];
+  }
+
+  toggleType(type: string) {
+    const types = this.point.types ?? [];
+    this.point.types = types.includes(type)
+      ? types.filter(t => t !== type)
+      : [...types, type];
   }
 
   onOdometerChange(value: number) {

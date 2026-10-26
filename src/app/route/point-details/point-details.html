@@ -2,6 +2,58 @@
   <div>
     <h3>Point Details</h3>
     <p><strong>Name:</strong> {{ point.name }}</p>
+    <p>
+      <strong>Type:</strong>
+      @for (t of point.types ?? []; track t) {
+        <span [class]="'type-badge type-' + t.toLowerCase()">
+          @switch (t) {
+            @case ('Food') {
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
+                <path d="M7 2v20"/>
+                <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>
+              </svg>
+            }
+            @case ('Gas') {
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="22" x2="15" y2="22"/>
+                <line x1="4" y1="9" x2="14" y2="9"/>
+                <path d="M14 22V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v18"/>
+                <path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V9.83a2 2 0 0 0-.59-1.42L18 5"/>
+              </svg>
+            }
+            @case ('Limit') {
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M7.5 15.5a6.5 6.5 0 1 1 9 0"/>
+                <path d="M12 12l3.5-3.5"/>
+                <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+              </svg>
+            }
+            @case ('MOP') {
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3 5 12h4l-3 6h12l-3-6h4L12 3z"/>
+                <line x1="12" y1="18" x2="12" y2="22"/>
+                <line x1="8" y1="22" x2="16" y2="22"/>
+              </svg>
+            }
+            @case ('Gates') {
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="10" width="4" height="11" rx="1"/>
+                <path d="M6 12h15a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1H6v4z"/>
+                <line x1="10" y1="8" x2="8" y2="12"/>
+                <line x1="15" y1="8" x2="13" y2="12"/>
+                <line x1="20" y1="8" x2="18" y2="12"/>
+                <line x1="1" y1="21" x2="7" y2="21"/>
+              </svg>
+            }
+          }
+          <span>{{ t }}</span>
+        </span>
+      } @empty {
+        <span>None</span>
+      }
+    </p>
     <p><strong>Odometer:</strong> {{ point.odometer ?? 0 }}</p>
     <p><strong>Distance:</strong> {{ point.distance }}</p>
     <p><strong>Comment:</strong> {{ point.comment }}</p>

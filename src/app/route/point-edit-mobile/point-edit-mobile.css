@@ -50,6 +50,84 @@
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
+/* Point Type Selector */
+.type-selector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.type-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 8px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 6px;
+  border: 1px solid #ced4da;
+  background-color: #f8f9fa;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+
+.type-btn:hover {
+  background-color: #e9ecef;
+}
+
+.type-btn.type-none.active {
+  background-color: #495057;
+  color: #fff;
+  border-color: #343a40;
+}
+
+.type-btn.type-food {
+  color: #d9480f;
+}
+.type-btn.type-food.active {
+  background-color: #fff4e6;
+  border-color: #f76707;
+  box-shadow: 0 0 0 2px rgba(247, 103, 7, 0.2);
+}
+
+.type-btn.type-gas {
+  color: #1971c2;
+}
+.type-btn.type-gas.active {
+  background-color: #e7f5ff;
+  border-color: #1c7ed6;
+  box-shadow: 0 0 0 2px rgba(28, 126, 214, 0.2);
+}
+
+.type-btn.type-limit {
+  color: #c92a2a;
+}
+.type-btn.type-limit.active {
+  background-color: #fff5f5;
+  border-color: #e03131;
+  box-shadow: 0 0 0 2px rgba(224, 49, 49, 0.2);
+}
+
+.type-btn.type-mop {
+  color: #2b8a3e;
+}
+.type-btn.type-mop.active {
+  background-color: #ebfbee;
+  border-color: #2f9e44;
+  box-shadow: 0 0 0 2px rgba(47, 158, 68, 0.2);
+}
+
+.type-btn.type-gates {
+  color: #5f3dc4;
+}
+.type-btn.type-gates.active {
+  background-color: #f3f0ff;
+  border-color: #7048e8;
+  box-shadow: 0 0 0 2px rgba(112, 72, 232, 0.2);
+}
+
 /* Button Layout (Side-by-Side) */
 .form-actions {
   display: flex;

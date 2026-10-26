@@ -34,7 +34,7 @@ export class RouteEdit {
             route.route || '',
             route.destination || ''
           );
-          copiedRoute.points = route.points ? route.points.map(p => new Point(p.name, p.odometer, p.distance,p.comment)) : [];
+          copiedRoute.points = route.points ? route.points.map(p => new Point(p.name, p.odometer, p.distance, p.comment, p.types)) : [];
           this.routeInput = copiedRoute;
           console.log('route Input route: ', route);
           this.cdr.detectChanges();
